@@ -29,11 +29,11 @@ public class Heat2d : MonoBehaviour {
 	void Start () {
 		mapWidth = (int)((mapHeight * DataParser.Instance.width) / DataParser.Instance.height);
 
-		Init();
-		allPoints = DataParser.Instance.dataPoints;
-		StartCoroutine("Heat");
-		mapWidthText.text = "Width: " + DataParser.Instance.width + " meters (" + mapWidth + "px)";
-		mapHeightText.text = "Height: " + DataParser.Instance.height + " meters (" + mapHeight + "px)";
+		// Init();
+		// allPoints = DataParser.Instance.dataPoints;
+		// StartCoroutine("Heat");
+		// mapWidthText.text = "Width: " + DataParser.Instance.width + " meters (" + mapWidth + "px)";
+		// mapHeightText.text = "Height: " + DataParser.Instance.height + " meters (" + mapHeight + "px)";
 	}
 
 	IEnumerator Heat()
@@ -80,7 +80,7 @@ public class Heat2d : MonoBehaviour {
 
 // Update is called once per frame
 	void Update () {
-
+		if (texture == null) return;
 		if (shouldReset)
 		{
 			resetTimer += Time.deltaTime;
