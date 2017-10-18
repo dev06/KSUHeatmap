@@ -36,30 +36,30 @@ public class Heat2d : MonoBehaviour {
 		// mapHeightText.text = "Height: " + DataParser.Instance.height + " meters (" + mapHeight + "px)";
 	}
 
-	IEnumerator Heat()
-	{
-		ResetTexture();
-		for (int i = 0; i < allPoints.Count; i++)
-		{
-			int x = (int)(allPoints[i].location.x * mapWidth);
-			int y = (int)(allPoints[i].location.y * mapHeight);
-			if (x > mapWidth || y > mapHeight) continue;
-			if (x < 0 || y < 0)continue;
-			try
-			{
-				cells[x, y].heatValue += .5f;
-				mapPositionText.text = "Position: " + x.ToString() + "," + y.ToString();
-				progresText.text = "Progress: " + (Mathf.Round(((float)i / (float)allPoints.Count) * 100) / 100f) * 100f + "%";
+	// IEnumerator Heat()
+	// {
+	// 	ResetTexture();
+	// 	for (int i = 0; i < allPoints.Count; i++)
+	// 	{
+	// 		int x = (int)(allPoints[i].location.x * mapWidth);
+	// 		int y = (int)(allPoints[i].location.y * mapHeight);
+	// 		if (x > mapWidth || y > mapHeight) continue;
+	// 		if (x < 0 || y < 0)continue;
+	// 		try
+	// 		{
+	// 			cells[x, y].heatValue += .5f;
+	// 			mapPositionText.text = "Position: " + x.ToString() + "," + y.ToString();
+	// 			progresText.text = "Progress: " + (Mathf.Round(((float)i / (float)allPoints.Count) * 100) / 100f) * 100f + "%";
 
-			} catch (System.Exception e)
-			{
+	// 		} catch (System.Exception e)
+	// 		{
 
-			}
-			yield return null;
-		}
+	// 		}
+	// 		yield return null;
+	// 	}
 
-		shouldReset = true;
-	}
+	// 	shouldReset = true;
+	// }
 	void Init()
 	{
 		float width = DataParser.Instance.width;
@@ -131,12 +131,12 @@ public class Heat2d : MonoBehaviour {
 
 	void HeatStep(int s)
 	{
-		for (int i = s; i < viewPoints.Count; i++)
-		{
-			int x = (int)(viewPoints[i].location.x * mapWidth);
-			int y = (int)(viewPoints[i].location.y * mapHeight);
-			cells[x, y].heatValue += .5f;
-		}
+		// for (int i = s; i < viewPoints.Count; i++)
+		// {
+		// 	int x = (int)(viewPoints[i].location.x * mapWidth);
+		// 	int y = (int)(viewPoints[i].location.y * mapHeight);
+		// 	cells[x, y].heatValue += .5f;
+		// }
 	}
 
 	void PreviousHeatStep()

@@ -8,10 +8,10 @@ public class Beacon {
 	public string id;
 	public float x;
 	public float y;
-	public SystemEnum.Orientation orientation;
+	public int orientation;
 	private Vector2 position;
 
-	public Beacon(string id, float x, float y, SystemEnum.Orientation orientation)
+	public Beacon(string id, float x, float y, int orientation)
 	{
 		this.x = x;
 		this.y = y;

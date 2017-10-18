@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class DataPoint {
 
-	public Vector2 location;
-	public Orientation orientation;
-	public float accuracy;
+	public string time;
+	public Vector2 position;
+	public int orientation;
+	List<string> closestBeaconID;
 
-	public DataPoint(Vector2 location, float accuracy, Orientation orientation)
+	public DataPoint(string time, Vector2 position, int orientation, List<string> closestBeaconID)
 	{
-		this.location = location;
-		this.accuracy = accuracy;
+		this.time = time;
+		this.position = position;
 		this.orientation = orientation;
+		this.closestBeaconID = closestBeaconID;
 	}
-}
-
-public enum Orientation
-{
-	NONE,
-	LOW,
-	MEDIUM,
-	HIGH,
 }

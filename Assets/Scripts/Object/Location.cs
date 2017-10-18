@@ -9,13 +9,13 @@ public class Location
 	public string id;
 	public float width;
 	public float height;
-	public SystemEnum.Orientation orientation;
+	public int orientation;
 
 	List<Beacon> beacons;
 
 	List<Wall> walls;
 
-	public Location(string name, string id, float width, float height, SystemEnum.Orientation orientation, List<Beacon> beacons, List<Wall> walls)
+	public Location(string name, string id, float width, float height, int orientation, List<Beacon> beacons, List<Wall> walls)
 	{
 		this.name = name ;
 		this.id = id;

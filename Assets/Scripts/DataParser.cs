@@ -16,6 +16,8 @@ public class DataParser : MonoBehaviour {
 	private string locationFileContents;
 	private string beaconFileContents;
 
+	public Location activeLocation;
+
 	void Awake()
 	{
 		if (Instance == null)
@@ -59,7 +61,8 @@ public class DataParser : MonoBehaviour {
 
 	private void Init()
 	{
-		Debug.Log(ParseLocation().ToString());
+		activeLocation = ParseLocation();
+		ParseDatapoints();
 	}
 
 	public Location ParseLocation()
@@ -75,7 +78,7 @@ public class DataParser : MonoBehaviour {
 		float width = float.Parse(data[1].Split(',')[2]);
 		float height = float.Parse(data[1].Split(',')[3]);
 
-		SystemEnum.Orientation orientation = (SystemEnum.Orientation) System.Enum.Parse (typeof (SystemEnum.Orientation), (data[2].Split(',')[0]).ToUpper());
+		int orientation = int.Parse((data[2].Split(',')[0]));
 		int endIndex = 0;
 		for (int i = 3; i < data.Length; i++)
 		{
@@ -86,8 +89,7 @@ public class DataParser : MonoBehaviour {
 
 			string[] beaconInfo = data[i].Split(',');
 
-			Beacon beacon = new Beacon(beaconInfo[0], float.Parse(beaconInfo[1]), float.Parse(beaconInfo[2]), SystemEnum.Orientation.NORTH);
-
+			Beacon beacon = new Beacon(beaconInfo[0], float.Parse(beaconInfo[1]), float.Parse(beaconInfo[2]), int.Parse(beaconInfo[3]));
 			beacons.Add(beacon);
 
 		}
@@ -100,11 +102,79 @@ public class DataParser : MonoBehaviour {
 			walls.Add(wall);
 		}
 
-		Debug.Log(walls.Count);
+
 
 		Location location = new Location(locationName, locationID, width, height, orientation, beacons, walls);
 
 		return location;
+
+	}
+
+	public void ParseDatapoints()
+	{
+		beaconFileContents = System.IO.File.ReadAllText(Application.dataPath + "/Datapoint/datapoint.csv");
+		Session s = new Session();
+		string[] sessionData = beaconFileContents.Split(new string[] {"END"}, System.StringSplitOptions.None);
+
+		for (int i = 0; i < sessionData.Length; i++)
+		{
+			string[] datapoint = sessionData[i].Split('\n');
+
+
+
+			for (int j = 0; j < datapoint.Length; j++)
+			{
+
+				string[] datapointContents = datapoint[j].Split(',');
+
+				if (string.IsNullOrEmpty(datapoint[j])) continue;
+				if (datapoint[j].Length <= 1) continue;
+				Debug.Log(datapoint[j]);
+
+
+
+			}
+			//Debug.Log(data[i]);
+		}
+		// string[] data = beaconFileContents.Split("END");
+		// int endIndex = 0;
+		// List<DataPoint> points = new List<DataPoint>();
+
+
+
+
+		// for (int i = 0; i < data.Length; i++)
+		// {
+		// 	if (data[i].Contains("END"))
+		// 	{
+		// 		endIndex = i;
+		// 		break;
+		// 	}
+		// 	string[] datapointContents = data[i].Split(',');
+
+
+		// 	string localTime = datapointContents[0];
+		// 	float x = float.Parse(datapointContents[1]);
+		// 	float y = float.Parse(datapointContents[2]);
+		// 	string orientation = datapointContents[3];
+		// 	List<string> closestBeaconId = new List<string>();
+
+		// 	for (int j = 4; j < datapointContents.Length; j++)
+		// 	{
+		// 		closestBeaconId.Add(datapointContents[j]);
+		// 	}
+
+		// 	DataPoint dp = new DataPoint(localTime, new Vector2(x, y), int.Parse(orientation), closestBeaconId);
+		// 	points.Add(dp);
+		// }
+
+		// s.SetDatapoints(points);
+
+		// Debug.Log(s.datapoints);
+		// for (int i = 0; i < s.datapoints.Count; i++)
+		// {
+		// 	Debug.Log(s.datapoints[i]);
+		// }
 
 	}
 

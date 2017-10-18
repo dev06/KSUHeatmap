@@ -1,9 +1,9 @@
 LocationName,locationID 
 0,0,15,15
-North
-b.1,0,0,North
-b.2,0,0,South
-b.3,1,34,South
+0
+b.1,0,0,1
+b.2,0,0,2
+b.3,1,34,3
 END
 0,0
 1,1
