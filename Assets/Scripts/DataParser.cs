@@ -16,7 +16,10 @@ public class DataParser : MonoBehaviour {
 	private string locationFileContents;
 	private string beaconFileContents;
 
-	public Location activeLocation;
+	public Location activeLocation;  // represents one active location
+	public List<Session> activeSession; // represents current session of the active location
+
+
 
 	void Awake()
 	{
@@ -28,68 +31,56 @@ public class DataParser : MonoBehaviour {
 
 	void Start () {
 
-
 		Init();
-
-		// saveLocation =  Application.dataPath + "/Datapoint/datapoint.csv";
-		// fileContents = System.IO.File.ReadAllText(saveLocation);
-
-		// string[] data = fileContents.Split('\n');
-		// for (int i = 0; i < data.Length; i++)
-		// {
-
-
-		// 	string[] vals = data[0].Split(',');
-		// 	width = float.Parse(vals[2]);
-		// 	height = float.Parse(vals[3]);
-
-		// 	if (i == 0) { continue; }
-		// 	string[] values = data[i].Split(',');
-		// 	DataPoint point = null;
-		// 	for (int ii = 0; ii < values.Length; ii++)
-		// 	{
-		// 		float x = float.Parse(values[0]);
-		// 		float y = float.Parse(values[1]);
-		// 		//	float acc = float.Parse(values[3]);
-		// 		//	Orientation o = (Orientation)System.Enum.Parse( typeof( Orientation ), values[2] );
-		// 		point = new DataPoint(new Vector2(x / width , y / height ), 0, Orientation.HIGH);
-		// 	}
-		// 	dataPoints.Add(point);
-		// }
-
 	}
 
 	private void Init()
 	{
-		activeLocation = ParseLocation();
-		ParseDatapoints();
+		activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
+
+		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/datapoint.csv");
 	}
 
-	public Location ParseLocation()
+	public Location ParseLocation(string path)
 	{
-		locationFileContents = System.IO.File.ReadAllText(Application.dataPath + "/Datapoint/location.txt");
+		/// <summary>
+		///	Parses the location to create a room
+		/// +path -> path of the file
+		/// </summary>
+
+		locationFileContents = System.IO.File.ReadAllText(path);
+
 		string[] data = locationFileContents.Split('\n');
+
 		List<Beacon> beacons = new List<Beacon>();
+
 		List<Wall> walls = new List<Wall>();
 
 		string locationName = data[0].Split(',')[0];
+
 		string locationID = data[0].Split(',')[1];
 
 		float width = float.Parse(data[1].Split(',')[2]);
+
 		float height = float.Parse(data[1].Split(',')[3]);
 
 		int orientation = int.Parse((data[2].Split(',')[0]));
+
 		int endIndex = 0;
+
 		for (int i = 3; i < data.Length; i++)
 		{
 			if (data[i].Contains("END")) {
+
 				endIndex = i;
+
 				break;
 			}
 
 			string[] beaconInfo = data[i].Split(',');
 
 			Beacon beacon = new Beacon(beaconInfo[0], float.Parse(beaconInfo[1]), float.Parse(beaconInfo[2]), int.Parse(beaconInfo[3]));
+
 			beacons.Add(beacon);
 
 		}
@@ -97,8 +88,11 @@ public class DataParser : MonoBehaviour {
 		for (int i = endIndex + 1; i < data.Length; i++)
 		{
 			float x = float.Parse(data[i].Split(',')[0]);
+
 			float y = float.Parse(data[i].Split(',')[1]);
+
 			Wall wall = new Wall(x, y);
+
 			walls.Add(wall);
 		}
 
@@ -110,72 +104,66 @@ public class DataParser : MonoBehaviour {
 
 	}
 
-	public void ParseDatapoints()
+
+	public List<Session> ParseDatapoints(string path)
 	{
-		beaconFileContents = System.IO.File.ReadAllText(Application.dataPath + "/Datapoint/datapoint.csv");
+		/// <summary>
+		/// Reads datapoints and creates session. Each session is extracted between "END" keyword found in the file
+		/// x,y,z,0,1,2,3		--> represents one session
+		/// x,y,z,0,1,2,3
+		///	END
+		/// x,y,z,0,1,2,3		--> represents second session
+		/// x,y,z,0,1,2,3
+		/// </summary>
+		beaconFileContents = System.IO.File.ReadAllText(path);
+
 		Session s = new Session();
+
 		string[] sessionData = beaconFileContents.Split(new string[] {"END"}, System.StringSplitOptions.None);
+
+		List<Session> sessions = new List<Session>();
 
 		for (int i = 0; i < sessionData.Length; i++)
 		{
-			string[] datapoint = sessionData[i].Split('\n');
+			string[] currentSessionData = sessionData[i].Split('\n');
 
+			Session session;
 
+			List<DataPoint> points = new List<DataPoint>();
 
-			for (int j = 0; j < datapoint.Length; j++)
+			for (int j = 0 ; j < currentSessionData.Length; j++)
 			{
+				string[] contents = currentSessionData[j].Split(',');
 
-				string[] datapointContents = datapoint[j].Split(',');
+				if (contents.Length <= 1) { continue; }
 
-				if (string.IsNullOrEmpty(datapoint[j])) continue;
-				if (datapoint[j].Length <= 1) continue;
-				Debug.Log(datapoint[j]);
+				string localTime = contents[0];
 
+				float x = float.Parse(contents[1]);
 
+				float y = float.Parse(contents[2]);
+
+				int orientation = int.Parse(contents[3]);
+
+				List<string> closestID = new List<string>();
+
+				for (int k = 4; k < contents.Length; k++)
+				{
+					closestID.Add(contents[k]);
+				}
+
+				DataPoint dp = new DataPoint(localTime, new Vector2(x, y), orientation, closestID);
+
+				points.Add(dp);
 
 			}
-			//Debug.Log(data[i]);
+
+			session = new Session(points);
+
+			sessions.Add(session);
+
 		}
-		// string[] data = beaconFileContents.Split("END");
-		// int endIndex = 0;
-		// List<DataPoint> points = new List<DataPoint>();
-
-
-
-
-		// for (int i = 0; i < data.Length; i++)
-		// {
-		// 	if (data[i].Contains("END"))
-		// 	{
-		// 		endIndex = i;
-		// 		break;
-		// 	}
-		// 	string[] datapointContents = data[i].Split(',');
-
-
-		// 	string localTime = datapointContents[0];
-		// 	float x = float.Parse(datapointContents[1]);
-		// 	float y = float.Parse(datapointContents[2]);
-		// 	string orientation = datapointContents[3];
-		// 	List<string> closestBeaconId = new List<string>();
-
-		// 	for (int j = 4; j < datapointContents.Length; j++)
-		// 	{
-		// 		closestBeaconId.Add(datapointContents[j]);
-		// 	}
-
-		// 	DataPoint dp = new DataPoint(localTime, new Vector2(x, y), int.Parse(orientation), closestBeaconId);
-		// 	points.Add(dp);
-		// }
-
-		// s.SetDatapoints(points);
-
-		// Debug.Log(s.datapoints);
-		// for (int i = 0; i < s.datapoints.Count; i++)
-		// {
-		// 	Debug.Log(s.datapoints[i]);
-		// }
-
+		return sessions;
 	}
 
 
