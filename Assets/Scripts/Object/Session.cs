@@ -6,7 +6,7 @@ using UnityEngine;
 public class Session
 {
 
-	public List<DataPoint> datapoints;
+	public List<KSUHeatmap.DataPoint> datapoints;
 
 	public Session()
 	{
@@ -14,13 +14,13 @@ public class Session
 	}
 
 
-	public Session(List<DataPoint> datapoints)
+	public Session(List<KSUHeatmap.DataPoint> datapoints)
 	{
 		this.datapoints = datapoints;
 	}
 
 
-	public void SetDatapoints(List<DataPoint> datapoints)
+	public void SetDatapoints(List<KSUHeatmap.DataPoint> datapoints)
 	{
 		this.datapoints = datapoints;
 	}

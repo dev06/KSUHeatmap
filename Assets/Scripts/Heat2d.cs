@@ -15,8 +15,8 @@ public class Heat2d : MonoBehaviour {
 	private Texture2D texture;
 	private int xx, yy;
 	private HeatmapCell[,] cells;
-	private List<DataPoint> allPoints = new List<DataPoint>(); //list of all the points in the file
-	private List<DataPoint> viewPoints = new List<DataPoint>(); //list of all points displayed on screen
+	private List<KSUHeatmap.DataPoint> allPoints = new List<KSUHeatmap.DataPoint>(); //list of all the points in the file
+	private List<KSUHeatmap.DataPoint> viewPoints = new List<KSUHeatmap.DataPoint>(); //list of all points displayed on screen
 	private int pointIndex;
 	private int viewingDataChunkIndex = 50;
 	private int mapWidth;
