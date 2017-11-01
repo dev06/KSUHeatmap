@@ -36,19 +36,24 @@ public class DataBuilder : MonoBehaviour {
     void Awake()
     {
         //set this to instance if there is not one already, otherwise destroy
-        if (instance != null)
+        if (instance != null) {
             DestroyImmediate(this.gameObject);
+        }
         instance = this;
         //allows you to set new material if you want, or use default
-        if (m_none == null)
+        if (m_none == null) {
             m_none = Resources.Load("Materials/None") as Material;
-        if (m_kalman == null)
+        }
+        if (m_kalman == null) {
             m_kalman = Resources.Load("Materials/Kalman") as Material;
-        if (m_gaussian == null)
+        }
+        if (m_gaussian == null) {
             m_gaussian = Resources.Load("Materials/Gaussian") as Material;
+        }
 
-        if (p_datavisual == null)
+        if (p_datavisual == null) {
             p_datavisual = Resources.Load("Prefabs/DataVisual") as GameObject;
+        }
 
         //set the static variables for this class
         mat_none = m_none;
@@ -59,31 +64,44 @@ public class DataBuilder : MonoBehaviour {
 
     void OnDestroy()
     {
-        if (instance == this)
+        if (instance == this) {
             instance = null;
+        }
     }
 
+
+
+
+
     //instantiate the data points and set their data
-    public static void BuildData(List<DataPoint> datapoints)
+    public  IEnumerator BuildData(List<DataPoint> datapoints)
     {
         instance = INSTANCE;
         GameObject nextDataPoint;
-        for(int i = 0; i < datapoints.Count; i++)
+        for (int i = 0; i < datapoints.Count; i++)
         {
             nextDataPoint = Instantiate(pref_datavisual, instance.transform);
             nextDataPoint.transform.position = new Vector3(datapoints[i].position.x, 0, datapoints[i].position.y);
             nextDataPoint.GetComponent<DataVisual>().SetDataPointInfo(datapoints[i]);
             nextDataPoint.name = "DataPoint (" + i + ")";
+            //yield return  null;
+            yield return new WaitForSeconds(.1f);
         }
+        yield return new WaitForSeconds(1);
+
+
+        DataParser.Instance.Replay(transform);
     }
 
+
+
     //parse the strings to make datapoints then give to BuildData(List<DataPoint>) above
-    public static void BuildData(List<string> datarows)
+    public   void  BuildData(List<string> datarows)
     {
-        if(datarows.Count < 2)
+        if (datarows.Count < 2)
         {
             Debug.Log("YOU NEED AT LEAST 2 DATA POINTS...");
-            return;
+            return ;
         }
 
         List<DataPoint> datapoints = new List<DataPoint>();
@@ -99,8 +117,9 @@ public class DataBuilder : MonoBehaviour {
         List<string> closestBeacons = new List<string>();
         for (int j = 4; j < curRow.Length; j++)
         {
-            if (curRow[j] != "")
+            if (curRow[j] != "") {
                 closestBeacons.Add(curRow[j]);
+            }
         }
 
         Vector2 movementVector =  playerPos - prevPos;
@@ -110,7 +129,7 @@ public class DataBuilder : MonoBehaviour {
 
 
 
-        for(int i = 2; i < datarows.Count; i++)
+        for (int i = 2; i < datarows.Count; i++)
         {
             curRow = datarows[i].Split(',');
 
@@ -120,20 +139,23 @@ public class DataBuilder : MonoBehaviour {
             closestBeacons.Clear();
             for (int j = 4; j < curRow.Length; j++)
             {
-                if (curRow[j] != "")
+                if (curRow[j] != "") {
                     closestBeacons.Add(curRow[j]);
+                }
             }
             movementVector = playerPos - prevPos;
             prevPos = playerPos;
 
             datapoints.Add(new DataPoint(playerPos, movementVector, orientation, localTime, closestBeacons));
+
+
         }
 
-        BuildData(datapoints);
+        StartCoroutine("BuildData", datapoints);
     }
 
     // Update is called once per frame
     void Update () {
-		
-	}
+
+    }
 }
