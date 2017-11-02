@@ -138,10 +138,11 @@ public class LocationBuilder : MonoBehaviour {
         for (int i = 0; i < beacons.Count; i++)
         {
             nextBeacon = Instantiate(p_beacon, instance.transform.Find("Beacons"));
-            nextBeacon.name = "Beacon (" + i + ") - " + beacons[i][0];
+            nextBeacon.name = "Beacon_" + beacons[i][0];
             nextBeacon.transform.position = new Vector3(float.Parse(beacons[i][1]), s_beaconHeight, float.Parse(beacons[i][2]));
             nextBeacon.transform.rotation = Quaternion.Euler(0, float.Parse(beacons[i][3]), 0);
             nextBeacon.transform.localScale = new Vector3(s_beaconScale, s_beaconScale, s_beaconScale);
+            nextBeacon.GetComponent<BeaconVisual>().SetInfo(beacons[i][0]);
         }
     }
 
