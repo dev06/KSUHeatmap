@@ -18,7 +18,6 @@ public class DataVisual : MonoBehaviour {
     public void SetDataPointInfo(DataPoint in_data)
     {
         d_point = new DataPoint(in_data);
-        Debug.Log(d_point.movement);
         heading.transform.localRotation = Quaternion.Euler(0, d_point.angle, 0);
         Vector3 lookat = new Vector3(transform.position.x + d_point.movement.x, movement.transform.position.y, transform.position.z + d_point.movement.y);
         movement.transform.LookAt(lookat, Vector3.up);
@@ -26,7 +25,7 @@ public class DataVisual : MonoBehaviour {
         movement_arrow.transform.LookAt(lookat, Vector3.up);
         movement.transform.localScale = new Vector3(movement.transform.localScale.x, movement.transform.localScale.y, -d_point.movement.magnitude);
         closestBeacons = new string[d_point.closestBeacons.Length];
-        d_point.closestBeacons.CopyTo(closestBeacons,0);
+        d_point.closestBeacons.CopyTo(closestBeacons, 0);
         ShowInfo();
     }
 
