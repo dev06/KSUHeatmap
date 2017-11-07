@@ -38,7 +38,7 @@ public class DataParser : MonoBehaviour {
 	{
 		activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
 
-		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/guitar_lab_no_filter.csv");
+		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/new_guitar_lab.csv");
 
 		BuildAll();
 	}
@@ -94,7 +94,7 @@ public class DataParser : MonoBehaviour {
 
 					float distance = Mathf.Abs(Vector2.Distance(nv, pv));
 
-					if (distance > .015f)
+					if (distance > .1f)
 					{
 						displayPoints.Add(currentPoint);
 					}
