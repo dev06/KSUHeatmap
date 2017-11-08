@@ -38,6 +38,10 @@ public class ClusterPoint : MonoBehaviour {
 	{
 		this.centroid = c;
 		distance = Vector3.Distance(position, centroid.position);
+		GetComponent<LineRenderer>().SetPosition(0, position);
+
+		GetComponent<LineRenderer>().SetPosition(1, centroid.position);
+		GetComponent<LineRenderer>().material = material;
 		SetMaterial(c.GetMaterial());
 
 	}

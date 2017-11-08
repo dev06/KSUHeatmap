@@ -13,6 +13,7 @@ public class Cluster : MonoBehaviour {
 	public static List<Centroid> centroids = new List<Centroid>();
 
 	public int clusterSize = 6;
+	public float pointScale = .2f;
 
 
 	void Awake()
@@ -115,9 +116,9 @@ public class Cluster : MonoBehaviour {
 	public void BuildPoints(List<string> clusterPoints)
 	{
 		StartCoroutine("CreatePoints", clusterPoints);
-		//	CreatePoints(clusterPoints);
-		StartCoroutine("AdjustPoints");
+		//CreatePoints(clusterPoints);
 
+		StartCoroutine("AdjustPoints");
 
 
 	}
@@ -129,7 +130,7 @@ public class Cluster : MonoBehaviour {
 			for (int ia = 0 ; ia < centroids.Count; ia++)
 			{
 				centroids[ia].CalculatePoint();
-				yield return new WaitForSeconds(.1f);
+				yield return null;
 			}
 		}
 	}
@@ -144,6 +145,7 @@ public class Cluster : MonoBehaviour {
 
 			GameObject clone = Instantiate(clusterPrefab) as GameObject;
 			Vector3 position = new Vector3(x, 0, z);
+			clone.transform.localScale = new Vector3(pointScale, .02f, pointScale);
 			clone.transform.position = position;
 			int ID = Random.Range(0, clusterSize);
 			ClusterPoint point = clone.GetComponent<ClusterPoint>();

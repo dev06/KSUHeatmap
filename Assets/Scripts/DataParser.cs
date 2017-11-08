@@ -94,7 +94,7 @@ public class DataParser : MonoBehaviour {
 
 					float distance = Mathf.Abs(Vector2.Distance(nv, pv));
 
-					if (distance > .06f)
+					if (distance > .01f)
 					{
 						displayPoints.Add(currentPoint);
 					}
