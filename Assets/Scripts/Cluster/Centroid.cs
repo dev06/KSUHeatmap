@@ -66,7 +66,6 @@ public class Centroid : MonoBehaviour {
 			{
 				Centroid c = Cluster.centroids[j];
 
-
 				float distance = Vector3.Distance(cp.position, c.position);
 
 				if (distance < cp.distance)
@@ -81,16 +80,16 @@ public class Centroid : MonoBehaviour {
 		}
 
 		CalculateCenter();
-
 	}
-
-
 
 	public void MergeWith(Centroid c)
 	{
 		c.points.AddRange(this.points);
+		for (int i = 0; i < c.points.Count; i++)
+		{
+			c.points[i].SetCentroid(c);
+		}
 		c.CalculateCenter();
-		SetMaterial(c.GetMaterial());
 		c.CalculatePoint();
 	}
 

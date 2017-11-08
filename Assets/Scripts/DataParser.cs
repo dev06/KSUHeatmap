@@ -72,27 +72,39 @@ public class DataParser : MonoBehaviour {
 
 
 		Cluster.Instance.CreateCentroid();
+
 		for (int i = 0 ; i < activeSession.Count; i++)
 		{
 			if (i > 0) { break; }
+
 			for (int j = 0; j < activeSession[i].datapoints.Count; j++)
 			{
 				if (displayPoints.Count == 0)
 				{
+
 					displayPoints.Add(activeSession[i].datapoints[j]);
+
 				} else
 				{
 					string prevPoint = activeSession[i].datapoints[j - 1];
+
 					float px = float.Parse(prevPoint.Split(',')[1]);
+
 					float py = float.Parse(prevPoint.Split(',')[2]);
+
 					Vector2 pv = new Vector2(px, py);
 
+
 					string currentPoint = activeSession[i].datapoints[j];
+
 					float nx = float.Parse(currentPoint.Split(',')[1]);
+
 					float ny = float.Parse(currentPoint.Split(',')[2]);
+
 					Vector2 nv = new Vector2(nx, ny);
 
 					float distance = Mathf.Abs(Vector2.Distance(nv, pv));
+
 
 					if (distance > .01f)
 					{

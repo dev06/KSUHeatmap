@@ -88,9 +88,14 @@ public class Cluster : MonoBehaviour {
 		{
 			Centroid c = centroids[i];
 
-			Centroid closest = GetClosest(c);
+			if (i > centroids.Count - 2) break;
 
-			c.MergeWith(closest);
+			float distanceToNext = Vector3.Distance(c.position, centroids[i + 1].position);
+
+			if (distanceToNext < 4f)
+			{
+				c.MergeWith(centroids[i + 1]);
+			}
 		}
 	}
 
@@ -117,7 +122,6 @@ public class Cluster : MonoBehaviour {
 	{
 		StartCoroutine("CreatePoints", clusterPoints);
 		//CreatePoints(clusterPoints);
-
 		StartCoroutine("AdjustPoints");
 
 
@@ -130,7 +134,7 @@ public class Cluster : MonoBehaviour {
 			for (int ia = 0 ; ia < centroids.Count; ia++)
 			{
 				centroids[ia].CalculatePoint();
-				yield return null;
+				yield return new WaitForSeconds(.1f);
 			}
 		}
 	}
@@ -180,6 +184,10 @@ public class Cluster : MonoBehaviour {
 			case 3: return SystemResources.yellow;
 			case 4: return SystemResources.orange;
 			case 5: return SystemResources.pink;
+			case 6: return SystemResources.color_1;
+			case 7: return SystemResources.color_2;
+			case 8: return SystemResources.color_3;
+
 		}
 
 		return null;
