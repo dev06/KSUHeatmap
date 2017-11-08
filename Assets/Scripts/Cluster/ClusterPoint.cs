@@ -18,15 +18,15 @@ public class ClusterPoint : MonoBehaviour {
 
 	}
 
-	public void Init() {
-		GetComponent<Renderer>().material = material;
+	public void Init(int ID)
+	{
+		this.ID = ID;
+		SetMaterial(Cluster.GetMaterialByID(ID));
 		position = transform.position;
 	}
 
 
-	void Update () {
 
-	}
 
 	public void SetMaterial(Material mat)
 	{
@@ -38,6 +38,8 @@ public class ClusterPoint : MonoBehaviour {
 	{
 		this.centroid = c;
 		distance = Vector3.Distance(position, centroid.position);
+		SetMaterial(c.GetMaterial());
+
 	}
 
 }

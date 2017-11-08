@@ -19,7 +19,7 @@ public class DataParser : MonoBehaviour {
 	public Location activeLocation;  // represents one active location
 	public List<Session> activeSession; // represents current session of the active location
 
-	private static int displayPointFrequency = 1;
+	private static int displayPointFrequency = 4;
 
 	void Awake()
 	{
@@ -38,7 +38,7 @@ public class DataParser : MonoBehaviour {
 	{
 		activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
 
-		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/new_guitar_lab.csv");
+		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/updated_data.csv");
 
 		BuildAll();
 	}
@@ -71,12 +71,12 @@ public class DataParser : MonoBehaviour {
 		List<string> displayPoints = new List<string>();
 
 
-
+		Cluster.Instance.CreateCentroid();
 		for (int i = 0 ; i < activeSession.Count; i++)
 		{
+			if (i > 0) { break; }
 			for (int j = 0; j < activeSession[i].datapoints.Count; j++)
 			{
-
 				if (displayPoints.Count == 0)
 				{
 					displayPoints.Add(activeSession[i].datapoints[j]);
@@ -94,14 +94,15 @@ public class DataParser : MonoBehaviour {
 
 					float distance = Mathf.Abs(Vector2.Distance(nv, pv));
 
-					if (distance > .1f)
+					if (distance > .06f)
 					{
 						displayPoints.Add(currentPoint);
 					}
 				}
 			}
 
-			DataBuilder.INSTANCE.BuildData(displayPoints);
+			Cluster.Instance.BuildPoints(displayPoints);
+
 		}
 	}
 

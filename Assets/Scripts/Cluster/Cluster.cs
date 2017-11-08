@@ -4,58 +4,46 @@ using UnityEngine;
 
 public class Cluster : MonoBehaviour {
 
+	public static Cluster Instance;
+
 	public GameObject clusterPrefab;
 	public GameObject centroidPrefab;
 	public List<ClusterPoint> redPoints;
 	public List<ClusterPoint> bluePoints;
-	public List<Centroid> centroids;
-	void Start () {
+	public static List<Centroid> centroids = new List<Centroid>();
 
-		// for (int i = 0; i < 10; i++)
-		// {
-		// 	GameObject clone = Instantiate(clusterPrefab) as GameObject;
-		// 	float x = Random.Range(-4, 5);
-		// 	float z = Random.Range(-4, 5);
-		// 	Vector3 position = new Vector3(x, 0, z);
-		// 	clone.transform.position = position;
-		// 	int ID = Random.Range(0, 2);
-		// 	ClusterPoint point = clone.GetComponent<ClusterPoint>();
-		// 	point.ID = ID;
-		// 	point.SetMaterial(ID == 0 ? SystemResources.red : SystemResources.blue);
-		// 	point.Init();
-		// 	if (ID == 0)
-		// 	{
-		// 		redPoints.Add(point);
-		// 	}
-		// 	if (ID == 1)
-		// 	{
-		// 		bluePoints.Add(point);
-		// 	}
-		// }
+	public int clusterSize = 6;
 
 
-		CreateCentroid();
-		CreateCentroid();
-
+	void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
 
 	}
 
+
 	public void CreateCentroid()
 	{
-		GameObject centroidClone = Instantiate(centroidPrefab) as GameObject;
-		Centroid centroid = centroidClone.GetComponent<Centroid>();
-		int ID = GenerateID();
-		centroid.Init(ID);
-		centroids.Add(centroid);
+		for (int i = 0; i < clusterSize; i++)
+		{
+			GameObject centroidClone = Instantiate(centroidPrefab) as GameObject;
+			Centroid centroid = centroidClone.GetComponent<Centroid>();
+			int ID = GenerateID();
+			centroid.Init(ID);
+			centroids.Add(centroid);
+		}
 
 	}
 
 	int GenerateID()
 	{
-		int ID = Random.Range(0, 2);
+		int ID = Random.Range(0, clusterSize);
 		do
 		{
-			ID = Random.Range(0, 2);
+			ID = Random.Range(0, clusterSize);
 
 		} while (IDExists(ID));
 
@@ -76,75 +64,123 @@ public class Cluster : MonoBehaviour {
 	}
 
 
-	public void CalculateCentroid(List<ClusterPoint> points, int ID)
-	{
-		if (points.Count < 1) return;
-		float x = 0;
-		float y = 0;
-		for (int i = 0; i < points.Count; i++)
+	void Update () {
+
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			ClusterPoint point = points[i];
-			x += point.position.x;
-			y += point.position.z;
+			for (int i = 0 ; i < centroids.Count; i++)
+			{
+				centroids[i].CalculatePoint();
+			}
 		}
 
-		x /= points.Count;
-		y /= points.Count;
-
-
-
-		GameObject centroidClone = Instantiate(centroidPrefab) as GameObject;
-		centroidClone.transform.position = new Vector3(x, 0, y);
-		Centroid centroid = centroidClone.GetComponent<Centroid>();
-		centroid.ID = ID;
-		centroid.SetMaterial(ID == 0 ? SystemResources.red : SystemResources.blue);
-		//centroid.Init();
-		centroids.Add(centroid);
-
-		for (int i = 0; i < points.Count; i++)
+		if (Input.GetKeyDown(KeyCode.M))
 		{
-			ClusterPoint point = points[i];
-			point.SetCentroid(centroid);
+			Merge();
+		}
+
+	}
+
+	public void Merge()
+	{
+		for (int i = 0 ; i < centroids.Count; i++)
+		{
+			Centroid c = centroids[i];
+
+			Centroid closest = GetClosest(c);
+
+			c.MergeWith(closest);
 		}
 	}
 
-
-	public void ReassignCluster()
+	public Centroid GetClosest(Centroid c)
 	{
-		for (int i = 0; i < redPoints.Count; i++)
+		Centroid closest = centroids[0];
+		for (int i = 0; i < centroids.Count; i++)
 		{
-			ClusterPoint currentPoint = redPoints[i];
-
-			for (int j = 0; j < centroids.Count; j++)
+			if (centroids[i] != c)
 			{
-				Centroid currentCentroid = centroids[j];
+				float dist = Vector3.Distance(c.position, centroids[i].position);
 
-				if (currentPoint.ID != currentCentroid.ID)
+				if (dist < Vector3.Distance(c.position, closest.position))
 				{
-					float distance = Vector3.Distance(currentPoint.position, currentCentroid.position);
-
-					if (distance < currentPoint.distance)
-					{
-						currentPoint.SetCentroid(currentCentroid);
-
-						currentPoint.SetMaterial(currentCentroid.GetMaterial());
-
-						redPoints.Remove(currentPoint);
-
-
-					}
+					closest = centroids[i];
 				}
+
+			}
+		}
+		return closest;
+	}
+
+	public void BuildPoints(List<string> clusterPoints)
+	{
+		StartCoroutine("CreatePoints", clusterPoints);
+		//	CreatePoints(clusterPoints);
+		StartCoroutine("AdjustPoints");
+
+
+
+	}
+
+	public IEnumerator AdjustPoints()
+	{
+		while (true)
+		{
+			for (int ia = 0 ; ia < centroids.Count; ia++)
+			{
+				centroids[ia].CalculatePoint();
+				yield return new WaitForSeconds(.1f);
 			}
 		}
 	}
 
 
-	void Update () {
-
-		if (Input.GetKeyDown(KeyCode.Space))
+	public IEnumerator CreatePoints(List<string> clusterPoints)
+	{
+		for (int i = 0 ; i < clusterPoints.Count; i++)
 		{
-			ReassignCluster();
-			Debug.Log("1");
+			float x = float.Parse(clusterPoints[i].Split(',')[1]);
+			float z = float.Parse(clusterPoints[i].Split(',')[2]);
+
+			GameObject clone = Instantiate(clusterPrefab) as GameObject;
+			Vector3 position = new Vector3(x, 0, z);
+			clone.transform.position = position;
+			int ID = Random.Range(0, clusterSize);
+			ClusterPoint point = clone.GetComponent<ClusterPoint>();
+			point.Init(ID);
+
+			for (int j = 0; j < centroids.Count; j++)
+			{
+				if (centroids[j].ID == ID)
+				{
+					centroids[j].points.Add(point);
+					point.SetCentroid(centroids[j]);
+				}
+			}
+			yield return null;
 		}
+
+		for (int i = 0 ; i < centroids.Count; i++)
+		{
+			centroids[i].CalculateCenter();
+		}
+
 	}
+
+
+	public static Material GetMaterialByID(int id)
+	{
+		switch (id)
+		{
+			case 0: return SystemResources.red;
+			case 1: return SystemResources.blue;
+			case 2: return SystemResources.green;
+			case 3: return SystemResources.yellow;
+			case 4: return SystemResources.orange;
+			case 5: return SystemResources.pink;
+		}
+
+		return null;
+	}
+
 }
