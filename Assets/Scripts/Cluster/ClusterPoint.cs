@@ -29,7 +29,7 @@ public class ClusterPoint : MonoBehaviour {
 
 	void Update()
 	{
-
+		if (centroid == null) { return; }
 		targetLinePosition = Vector3.Lerp(lineRenderer.GetPosition(1), centroid.position, Time.deltaTime * 5.0f);
 		lineRenderer.SetPosition(1, targetLinePosition);
 		lineRenderer.material = material;

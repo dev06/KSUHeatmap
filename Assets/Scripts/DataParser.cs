@@ -21,6 +21,10 @@ public class DataParser : MonoBehaviour {
 
 	private static int displayPointFrequency = 4;
 
+	public float distanceThreshold = .1f;
+
+	public string fileName;
+
 	void Awake()
 	{
 		if (Instance == null)
@@ -31,33 +35,43 @@ public class DataParser : MonoBehaviour {
 
 	void Start () {
 
-		Init();
+		//Init();
 	}
 
-	private void Init()
+	void Update()
 	{
-		activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+		}
+	}
 
-		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/updated_data.csv");
+	public void Init()
+	{
+		//activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
 
-		BuildAll();
+		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + fileName + ".csv");
+
+
 	}
 
 	public void Replay(Transform t)
 	{
-		foreach (Transform tt in t)
-		{
-			Destroy(tt.gameObject);
-		}
+
 
 		BuildPath(activeSession);
 	}
 
+	public void Replay()
+	{
+
+
+		BuildPath(activeSession);
+	}
 	public  void BuildAll()
 	{
 		BuildPath(activeSession);
-		BuildWalls(activeLocation);
-		BuildBeacons(activeLocation);
+		//	BuildWalls(activeLocation);
+		//BuildBeacons(activeLocation);
 	}
 
 	public  void BuildPath(List<Session> activeSession, int session = -1)
@@ -106,12 +120,13 @@ public class DataParser : MonoBehaviour {
 					float distance = Mathf.Abs(Vector2.Distance(nv, pv));
 
 
-					if (distance > .01f)
+					if (distance > distanceThreshold)
 					{
 						displayPoints.Add(currentPoint);
 					}
 				}
 			}
+
 
 			Cluster.Instance.BuildPoints(displayPoints);
 

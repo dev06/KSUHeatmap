@@ -62,9 +62,9 @@ public class Centroid : MonoBehaviour {
 		{
 			ClusterPoint cp = points[i];
 
-			for (int j = 0; j < Cluster.centroids.Count; j++)
+			for (int j = 0; j < Cluster.Instance.centroids.Count; j++)
 			{
-				Centroid c = Cluster.centroids[j];
+				Centroid c = Cluster.Instance.centroids[j];
 
 				float distance = Vector3.Distance(cp.position, c.position);
 
