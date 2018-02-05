@@ -10,7 +10,6 @@ public class ClusterUI : MonoBehaviour {
 	public GameObject DistanceThreshold;
 	public GameObject CentroidDelay;
 
-
 	public InputField inputField;
 
 	private Slider clusterSlider;
@@ -22,6 +21,7 @@ public class ClusterUI : MonoBehaviour {
 	private Text pointSliderText;
 	private Text distanceSliderText;
 	private Text centroidSliderText;
+
 
 
 
@@ -49,7 +49,7 @@ public class ClusterUI : MonoBehaviour {
 		cluster = Cluster.Instance;
 		dataParser = DataParser.Instance;
 
-		inputField.text = "updated_data";
+		inputField.text = "data_1";
 
 	}
 

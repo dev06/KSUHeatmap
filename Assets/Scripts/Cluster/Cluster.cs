@@ -79,22 +79,22 @@ public class Cluster : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			CalculateAverageCentroid();
-		}
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			for (int i = 0 ; i < pins.Count; i++)
-			{
-				if (pins[i] == null) { continue;  }
-				float mag = pins[i].transform.position.magnitude;
-				if (mag > high)
-				{
-					Destroy(pins[i].gameObject);
-				}
-			}
-		}
+		// if (Input.GetKeyDown(KeyCode.M))
+		// {
+		// 	CalculateAverageCentroid();
+		// }
+		// if (Input.GetKeyDown(KeyCode.R))
+		// {
+		// 	for (int i = 0 ; i < pins.Count; i++)
+		// 	{
+		// 		if (pins[i] == null) { continue;  }
+		// 		float mag = pins[i].transform.position.magnitude;
+		// 		if (mag > high)
+		// 		{
+		// 			Destroy(pins[i].gameObject);
+		// 		}
+		// 	}
+		// }
 	}
 
 	public void CalculateAverageCentroid()
@@ -115,7 +115,7 @@ public class Cluster : MonoBehaviour {
 			{
 				Centroid other = centroids[i];
 				float distanceTo = Vector3.Distance(other.position, c.position);
-				if (distanceTo > 3f) { continue; }
+				if (distanceTo > 5f) { continue; }
 				float x = c.position.x + other.position.x;
 				float z = c.position.z + other.position.z;
 				x /= 2;
@@ -229,7 +229,7 @@ public class Cluster : MonoBehaviour {
 
 		//StartCoroutine("CreatePoints", clusterPoints);
 		CreatePoints(clusterPoints);
-		//StartCoroutine("AdjustPoints");
+		StartCoroutine("AdjustPoints");
 
 
 	}
@@ -299,6 +299,10 @@ public class Cluster : MonoBehaviour {
 			case 6: return SystemResources.color_1;
 			case 7: return SystemResources.color_2;
 			case 8: return SystemResources.color_3;
+			case 9: return SystemResources.color_4;
+			case 10: return SystemResources.color_5;
+			case 11: return SystemResources.color_6;
+
 
 		}
 

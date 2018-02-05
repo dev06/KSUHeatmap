@@ -14,6 +14,9 @@ public class SystemResources {
 	public static Material color_1 = Resources.Load("Materials/color_1", typeof(Material)) as Material;
 	public static Material color_2 = Resources.Load("Materials/color_2", typeof(Material)) as Material;
 	public static Material color_3 = Resources.Load("Materials/color_3", typeof(Material)) as Material;
+	public static Material color_4 = Resources.Load("Materials/color_4", typeof(Material)) as Material;
+	public static Material color_5 = Resources.Load("Materials/color_5", typeof(Material)) as Material;
+	public static Material color_6 = Resources.Load("Materials/color_6", typeof(Material)) as Material;
 
 
 }
