@@ -9,12 +9,10 @@ public class Cluster : MonoBehaviour {
 	public GameObject clusterPrefab;
 	public GameObject centroidPrefab;
 	public GameObject AverageCentroid;
-	public GameObject Outer; 
 	public List<ClusterPoint> redPoints;
 	public List<ClusterPoint> bluePoints;
 	public List<Centroid> centroids = new List<Centroid>();
 	public List<GameObject> pins = new List<GameObject>();
-	public List<GameObject> outerPins = new List<GameObject>(); 
 
 	public int clusterSize = 6;
 	public float pointScale = .2f;
@@ -81,7 +79,6 @@ public class Cluster : MonoBehaviour {
 			}
 		}
 
-<<<<<<< HEAD
 		// if (Input.GetKeyDown(KeyCode.M))
 		// {
 		// 	CalculateAverageCentroid();
@@ -98,25 +95,6 @@ public class Cluster : MonoBehaviour {
 		// 		}
 		// 	}
 		// }
-=======
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			CalculateAverageCentroid();
-		}
-
-		if(Input.GetKeyDown(KeyCode.K))
-		{
-			CreateOuterPins(); 
-		}
-	}
-
-	private void CreateOuterPins()
-	{
-		for(int i = 0; i < pins.Count; i++)
-		{
-			CreateEdges(pins[i]); 
-		}
->>>>>>> b9b5d553d7df2fac20726a7ebe1efeb17736aa43
 	}
 
 	public void CalculateAverageCentroid()
@@ -125,6 +103,7 @@ public class Cluster : MonoBehaviour {
 		{
 			CreatePinCentroid(centroids[i], i);
 		}
+		FindOutlier();
 	}
 
 	private void CreatePinCentroid(Centroid c, int ia)
@@ -150,68 +129,80 @@ public class Cluster : MonoBehaviour {
 		}
 	}
 
-	private void CreateEdges(GameObject current)
+	private float high = 0;
+	private void FindOutlier()
 	{
-		float threshold = .001f; 
-		for(int i = 0;i < pins.Count; i++)
+		List<float> magnitudes = new List<float>();
+		for (int i = 0; i < pins.Count; i++)
 		{
-			if(pins[i] == current) continue; 
-			bool hasLeft = false; 
-			bool hasRight = false; 
-
-			bool isEdge = false; 
-
-			if(pins[i].transform.position.x < current.transform.position.x)
-			{
-				float distance = Vector3.Distance(current.transform.position, pins[i].transform.position); 
-
-
-				if(distance < threshold)
-				{
-					hasLeft = true; 
-					continue; 
-
-				}
-			}
-
-			if(pins[i].transform.position.x > current.transform.position.x)
-			{
-				float distance = Vector3.Distance(current.transform.position, pins[i].transform.position); 
-
-				if(distance < threshold)
-				{
-					hasRight = true; 
-				}
-			}
-
-			if( hasLeft)
-			{
-				isEdge = false; 
-			}
-			else
-			{
-				isEdge = true; 
-			}
-
-
-			if(isEdge)
-			{
-
-
-				outerPins.Add(current); 
-
-			}
+			if (pins[i] == null) { continue; }
+			magnitudes.Add((float)(pins[i].transform.position.magnitude));
 		}
 
 
-		for(int i = 0;i < outerPins.Count; i++)
+
+
+		magnitudes.Sort();
+
+		float q1 = 0;
+		float q3 = 0;
+		float iqr = 0;
+
+		float highBound = 0;
+		float lowBound = 0;
+
+		for (int i = 0; i < magnitudes.Count / 2; i++)
 		{
-			GameObject pinClone = Instantiate(Outer) as GameObject;
-			pinClone.transform.SetParent(transform);
-			pinClone.transform.position = outerPins[i].transform.position + new Vector3(0, 3, 0); 
+			//Debug.Log(magnitudes[i]);
+			q1 += magnitudes[i];
 		}
+
+		//	Debug.Log(" ");
+
+
+		for (int i = magnitudes.Count / 2; i < magnitudes.Count; i++)
+		{	//Debug.Log(magnitudes[i]);
+
+			q3 += magnitudes[i];
+		}
+		q1 /= (magnitudes.Count / 2);
+		q3 /= (magnitudes.Count / 2);
+
+		iqr = q3 - q1;
+
+		highBound = (q3 + ( .5f * iqr));
+		lowBound = (q1 - (1.5f * iqr));
+
+		// Debug.Log("Q1: " + q1);
+		// Debug.Log("Q3: " + q3);
+		// Debug.Log("IQR: " + iqr);
+		//	Debug.Log(highBound);
+		// Debug.Log(lowBound + "\n");
+
+
+		high = highBound;
+
+
 
 	}
+
+	public void Merge()
+	{
+		for (int i = 0 ; i < centroids.Count; i++)
+		{
+			Centroid c = centroids[i];
+
+			if (i > centroids.Count - 2) { break; }
+
+			float distanceToNext = Vector3.Distance(c.position, centroids[i + 1].position);
+
+			if (distanceToNext < 4f)
+			{
+				c.MergeWith(centroids[i + 1]);
+			}
+		}
+	}
+
 	public Centroid GetClosest(Centroid c)
 	{
 		Centroid closest = centroids[0];
