@@ -10,7 +10,8 @@ public class ClusterUI : MonoBehaviour {
 	public GameObject DistanceThreshold;
 	public GameObject CentroidDelay;
 
-	public InputField inputField;
+	public InputField input_location;
+    public InputField input_data;
 
 	private Slider clusterSlider;
 	private Slider pointSlider;
@@ -49,7 +50,8 @@ public class ClusterUI : MonoBehaviour {
 		cluster = Cluster.Instance;
 		dataParser = DataParser.Instance;
 
-		inputField.text = "data_1";
+        input_location.text = "Atrium/Atrium_Info.csv";
+		input_data.text = "Atrium/Atrium_NoFilter.csv";
 
 	}
 
@@ -64,7 +66,8 @@ public class ClusterUI : MonoBehaviour {
 		pointSliderText.text = cluster.pointScale.ToString("F3");
 		centroidSliderText.text = cluster.centroidCenterDelay.ToString("F2");
 		distanceSliderText.text = dataParser.distanceThreshold.ToString("F3");
-		dataParser.fileName = inputField.text;
+        dataParser.locationfile = input_location.text;
+        dataParser.datafile = input_data.text;
 
 	}
 
@@ -73,7 +76,7 @@ public class ClusterUI : MonoBehaviour {
 	{
 		if (running) { return; }
 		dataParser.Init();
-		dataParser.BuildAll();
+		//dataParser.BuildAll();
 		running = true;
 	}
 	public void StopButtonPress()

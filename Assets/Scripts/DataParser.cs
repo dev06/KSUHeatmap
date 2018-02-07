@@ -6,6 +6,8 @@ public class DataParser : MonoBehaviour {
 
 	public static DataParser Instance;
 	public List<KSUHeatmap.DataPoint> dataPoints = new List<KSUHeatmap.DataPoint>();
+    public string locationfile;
+    public string datafile;
 	public float width = 0;
 	public float height = 0;
 
@@ -22,8 +24,6 @@ public class DataParser : MonoBehaviour {
 	private static int displayPointFrequency = 4;
 
 	public float distanceThreshold = .1f;
-
-	public string fileName;
 
 	void Awake()
 	{
@@ -47,91 +47,112 @@ public class DataParser : MonoBehaviour {
 
 	public void Init()
 	{
-		//activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
 
-		activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + fileName + ".csv");
+		//activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + fileName + ".csv");
 
+        if (locationfile == null)
+            activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
+        else
+            activeLocation = ParseLocation(Application.dataPath + "/Datapoint/" + locationfile);
 
-	}
+        if (datafile == null)
+            activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/guitar_lab_no_filter.csv");
+        else
+            activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + datafile);
+        BuildAll();
+    }
 
 	public void Replay(Transform t)
 	{
-
-
 		BuildPath(activeSession);
 	}
 
 	public void Replay()
 	{
-
-
 		BuildPath(activeSession);
 	}
 	public  void BuildAll()
 	{
-		BuildPath(activeSession);
-		//	BuildWalls(activeLocation);
-		//BuildBeacons(activeLocation);
+        BuildPath(activeSession);
+		BuildWalls(activeLocation);
+		BuildBeacons(activeLocation);
+        //set up camera to see whole room
+        Camera thiscam = GetComponent<Camera>();
+        thiscam.orthographicSize = width / 2;
+        if (thiscam.orthographicSize < (height/2) + .5f)
+            thiscam.orthographicSize = (height/2) + .5f;
+        transform.position = new Vector3((thiscam.orthographicSize*1.7777f) - 1f, transform.position.y, height/2);
 	}
 
-	public  void BuildPath(List<Session> activeSession, int session = -1)
+	public  void BuildPath(List<Session> activeSession)
 	{
-		if (session != -1)
-		{
-			DataBuilder.INSTANCE.BuildData(activeSession[session].datapoints);
-			return;
-		}
-
 		List<string> displayPoints = new List<string>();
 
 
 		Cluster.Instance.CreateCentroid();
-
-		for (int i = 0 ; i < activeSession.Count; i++)
-		{
-			if (i > 0) { break; }
-
+        float minDist = distanceThreshold * distanceThreshold;
+        string prevPoint, currentPoint;
+        float distance;
+        Vector2 pv = new Vector2(), nv = new Vector2();
+        for (int i = 0 ; i < activeSession.Count; i++)
+        //for (int i = 0; i < 1; i++)
+        {
+            //if (i > 0) { break; }
+            Debug.Log(activeSession[i].datapoints.Count);
 			for (int j = 0; j < activeSession[i].datapoints.Count; j++)
 			{
-				if (displayPoints.Count == 0)
+				if (j == 0)
 				{
 
-					displayPoints.Add(activeSession[i].datapoints[j]);
+					displayPoints.Add(activeSession[i].datapoints[0]);
 
-				} else
+                    prevPoint = activeSession[i].datapoints[0];
+
+                    pv.x = float.Parse(prevPoint.Split(',')[1]);
+
+                    pv.y = float.Parse(prevPoint.Split(',')[2]);
+
+                } else
 				{
-					string prevPoint = activeSession[i].datapoints[j - 1];
 
-					float px = float.Parse(prevPoint.Split(',')[1]);
+                    //***Moved to make it so after you calc distance, set pv to nv***\\
+					//prevPoint = activeSession[i].datapoints[j - 1];
 
-					float py = float.Parse(prevPoint.Split(',')[2]);
+					//px = float.Parse(prevPoint.Split(',')[1]);
 
-					Vector2 pv = new Vector2(px, py);
+					//py = float.Parse(prevPoint.Split(',')[2]);
 
-
-					string currentPoint = activeSession[i].datapoints[j];
-
-					float nx = float.Parse(currentPoint.Split(',')[1]);
-
-					float ny = float.Parse(currentPoint.Split(',')[2]);
-
-					Vector2 nv = new Vector2(nx, ny);
-
-					float distance = Mathf.Abs(Vector2.Distance(nv, pv));
+					//pv = new Vector2(px, py);
 
 
-					if (distance > distanceThreshold)
+					currentPoint = activeSession[i].datapoints[j];
+
+					nv.x = float.Parse(currentPoint.Split(',')[1]);
+
+					nv.y = float.Parse(currentPoint.Split(',')[2]);
+
+					distance = Vector2.SqrMagnitude(nv - pv);
+
+                    //displayPoints.Add(currentPoint);
+                    if (distance > minDist)
 					{
 						displayPoints.Add(currentPoint);
 					}
+
+                    //set previous vector to the current vector (previous for next point)
+                    pv.x = nv.x;
+                    pv.y = nv.y;
 				}
 			}
 
 
-			Cluster.Instance.BuildPoints(displayPoints);
 
-		}
-	}
+        }
+        Debug.Log("total-" + displayPoints.Count);
+
+        Cluster.Instance.BuildPoints(displayPoints);
+        displayPoints.Clear();
+    }
 
 	public  void BuildWalls(Location location)
 	{
@@ -142,12 +163,25 @@ public class DataParser : MonoBehaviour {
 		}
 
 		List<string> walls = new List<string>();
-
+        float maxx = 0;
+        float maxy = 0;
 		for (int i = 0 ; i < location.GetWalls().Count; i++)
 		{
-			string coordinate = location.GetWalls()[i].x + "," + location.GetWalls()[i].y;
+            //find the maximum x (aka the width)
+            if(location.GetWalls()[i].x > maxx)
+            {
+                maxx = location.GetWalls()[i].x;
+            }
+            //find the maximum y (aka the height)
+            if (location.GetWalls()[i].y > maxy)
+            {
+                maxy = location.GetWalls()[i].y;
+            }
+            string coordinate = location.GetWalls()[i].x + "," + location.GetWalls()[i].y;
 			walls.Add(coordinate);
 		}
+        width = maxx;
+        height = maxy;
 
 		LocationBuilder.BuildWalls(walls);
 	}
@@ -253,11 +287,11 @@ public class DataParser : MonoBehaviour {
 		Session s = new Session();
 
 		string[] sessionData = beaconFileContents.Split(new string[] {"END"}, System.StringSplitOptions.None);
-
+        Debug.Log(sessionData.Length);
 		List<Session> sessions = new List<Session>();
 
 		for (int i = 0; i < sessionData.Length; i++)
-		{
+            {
 			string[] currentSessionData = sessionData[i].Split('\n');
 
 			Session session;
@@ -270,7 +304,10 @@ public class DataParser : MonoBehaviour {
 			{
 				string[] contents = currentSessionData[j].Split(',');
 
-				if (contents.Length <= 1) { continue; }
+				if (contents.Length <= 1)
+                {
+                    continue;
+                }
 
 				string localTime = contents[0];
 
@@ -281,30 +318,31 @@ public class DataParser : MonoBehaviour {
 				int orientation = int.Parse(contents[3]);
 
 				List<string> closestID = new List<string>();
-
-				for (int k = 4; k < contents.Length; k++)
+               
+                string concat = localTime + "," + x + "," + y + "," + orientation;
+                for (int k = 4; k < contents.Length; k++)
 				{
 					closestID.Add(contents[k]);
+                    concat += "," + contents[k];
 				}
 
 				KSUHeatmap.DataPoint dp = new KSUHeatmap.DataPoint(localTime, new Vector2(x, y), orientation, closestID);
 
 				points.Add(dp);
 
-				string concat = localTime + "," + x + "," + y + "," + orientation  + "," + closestID[0] + "," + closestID[1] + "," + closestID[2];
-
 				datapoints.Add(concat);
 
 			}
+            
 
-			session = new Session(datapoints);
+            session = new Session(datapoints);
 
 			sessions.Add(session);
 
 		}
 
-
-		sessions.RemoveAt(sessions.Count - 1);
+        Debug.Log("after");
+        sessions.RemoveAt(sessions.Count - 1);
 		return sessions;
 	}
 

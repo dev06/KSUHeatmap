@@ -31,12 +31,12 @@ public class Centroid : MonoBehaviour {
 
 	}
 
-
+    float x, z;
 	public void CalculateCenter()
 	{
 		if (points.Count == 0) { return; }
-		float x = 0;
-		float z = 0;
+		x = 0;
+		z = 0;
 		for (int i = 0 ; i < points.Count; i++)
 		{
 			x += points[i].position.x;
@@ -46,7 +46,10 @@ public class Centroid : MonoBehaviour {
 		x /= points.Count;
 		z /= points.Count;
 
-		position = new Vector3(x, 0, z);
+		position.x = x;
+        position.y = 0;
+        position.z = z;
+
 		targetPosition = position;
 	}
 
@@ -55,13 +58,15 @@ public class Centroid : MonoBehaviour {
 		transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5.0f);
 	}
 
+    ClusterPoint cp;
+    Centroid closest;
 	public void CalculatePoint()
 	{
 		for (int i = 0; i < points.Count; i++)
 		{
-			ClusterPoint cp = points[i];
+			cp = points[i];
 
-			Centroid closest = GetClosestCentroid(cp);
+			closest = GetClosestCentroid(cp);
 
 			if (closest == null) { continue; }
 
@@ -95,14 +100,16 @@ public class Centroid : MonoBehaviour {
 		CalculateCenter();
 	}
 
+    float magnitude, distanceMagnitude;
+    Centroid c;
 	public Centroid GetClosestCentroid(ClusterPoint cp)
 	{
-		Centroid closest = null;
-		float distanceMagnitude = Vector3.Distance(cp.position, cp.centroid.position);
+		closest = null;
+		distanceMagnitude = Vector3.SqrMagnitude(cp.position - cp.centroid.position);
 		for (int i = 0; i < Cluster.Instance.centroids.Count; i++)
 		{
-			Centroid c = Cluster.Instance.centroids[i];
-			float magnitude = Vector3.Distance(cp.position, c.position);
+			c = Cluster.Instance.centroids[i];
+			magnitude = Vector3.SqrMagnitude(cp.position - c.position);
 			if (magnitude < distanceMagnitude)
 			{
 				closest = c;

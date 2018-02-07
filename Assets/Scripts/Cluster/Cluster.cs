@@ -28,14 +28,15 @@ public class Cluster : MonoBehaviour {
 
 	}
 
-
+    GameObject centroidClone;
+    Centroid centroid;
 	public void CreateCentroid()
 	{
 		for (int i = 0; i < clusterSize; i++)
 		{
-			GameObject centroidClone = Instantiate(centroidPrefab) as GameObject;
+			centroidClone = Instantiate(centroidPrefab) as GameObject;
 			centroidClone.transform.SetParent(transform);
-			Centroid centroid = centroidClone.GetComponent<Centroid>();
+			centroid = centroidClone.GetComponent<Centroid>();
 			int ID = GenerateID();
 			centroid.Init(ID);
 			centroids.Add(centroid);
@@ -79,22 +80,22 @@ public class Cluster : MonoBehaviour {
 			}
 		}
 
-		// if (Input.GetKeyDown(KeyCode.M))
-		// {
-		// 	CalculateAverageCentroid();
-		// }
-		// if (Input.GetKeyDown(KeyCode.R))
-		// {
-		// 	for (int i = 0 ; i < pins.Count; i++)
-		// 	{
-		// 		if (pins[i] == null) { continue;  }
-		// 		float mag = pins[i].transform.position.magnitude;
-		// 		if (mag > high)
-		// 		{
-		// 			Destroy(pins[i].gameObject);
-		// 		}
-		// 	}
-		// }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            CalculateAverageCentroid();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            for (int i = 0; i < pins.Count; i++)
+            {
+                if (pins[i] == null) { continue; }
+                float mag = pins[i].transform.position.magnitude;
+                if (mag > high)
+                {
+		 			Destroy(pins[i].gameObject);
+		 		}
+		 	}
+		 }
 	}
 
 	public void CalculateAverageCentroid()
@@ -106,22 +107,27 @@ public class Cluster : MonoBehaviour {
 		FindOutlier();
 	}
 
-	private void CreatePinCentroid(Centroid c, int ia)
+    Centroid other;
+    float distanceTo, x, z;
+    Vector3 position;
+    GameObject pinClone;
+    private void CreatePinCentroid(Centroid c, int ia)
 	{
+        
 		for (int i = 0; i < centroids.Count; i++)
 		{
 			if (ia == i) { break; }
 			if (centroids[i].ID != c.ID)
 			{
-				Centroid other = centroids[i];
-				float distanceTo = Vector3.Distance(other.position, c.position);
-				if (distanceTo > 5f) { continue; }
-				float x = c.position.x + other.position.x;
-				float z = c.position.z + other.position.z;
+				other = centroids[i];
+				distanceTo = Vector3.SqrMagnitude(other.position - c.position);
+				if (distanceTo > 25f) { continue; }
+				x = c.position.x + other.position.x;
+				z = c.position.z + other.position.z;
 				x /= 2;
 				z /= 2;
-				Vector3 position = new Vector3(x, 0, z);
-				GameObject pinClone = Instantiate(AverageCentroid) as GameObject;
+				position = new Vector3(x, 0, z);
+				pinClone = Instantiate(AverageCentroid) as GameObject;
 				pinClone.transform.SetParent(transform);
 				pinClone.transform.position = position;
 				pins.Add(pinClone);
@@ -188,15 +194,17 @@ public class Cluster : MonoBehaviour {
 
 	public void Merge()
 	{
+        Centroid c;
+        float distanceToNext;
 		for (int i = 0 ; i < centroids.Count; i++)
 		{
-			Centroid c = centroids[i];
+			c = centroids[i];
 
 			if (i > centroids.Count - 2) { break; }
 
-			float distanceToNext = Vector3.Distance(c.position, centroids[i + 1].position);
+			distanceToNext = Vector3.SqrMagnitude(c.position - centroids[i + 1].position);
 
-			if (distanceToNext < 4f)
+			if (distanceToNext < 16f)
 			{
 				c.MergeWith(centroids[i + 1]);
 			}
@@ -206,13 +214,14 @@ public class Cluster : MonoBehaviour {
 	public Centroid GetClosest(Centroid c)
 	{
 		Centroid closest = centroids[0];
+        float dist;
 		for (int i = 0; i < centroids.Count; i++)
 		{
 			if (centroids[i] != c)
 			{
-				float dist = Vector3.Distance(c.position, centroids[i].position);
+				dist = Vector3.SqrMagnitude(c.position - centroids[i].position);
 
-				if (dist < Vector3.Distance(c.position, closest.position))
+				if (dist < Vector3.SqrMagnitude(c.position - closest.position))
 				{
 					closest = centroids[i];
 				}
@@ -224,7 +233,7 @@ public class Cluster : MonoBehaviour {
 
 	public void BuildPoints(List<string> clusterPoints)
 	{
-		StopCoroutine("CreatePoints");
+		//StopCoroutine("CreatePoints");
 		StopCoroutine("AdjustPoints");
 
 		//StartCoroutine("CreatePoints", clusterPoints);
@@ -249,19 +258,24 @@ public class Cluster : MonoBehaviour {
 
 	public void CreatePoints(List<string> clusterPoints)
 	{
-
+        float x, z;
+        GameObject clone;
+        Vector3 position;
+        int ID;
+        ClusterPoint point;
 		for (int i = 0 ; i < clusterPoints.Count; i++)
 		{
-			float x = float.Parse(clusterPoints[i].Split(',')[1]);
-			float z = float.Parse(clusterPoints[i].Split(',')[2]);
+			x = float.Parse(clusterPoints[i].Split(',')[1]);
+			z = float.Parse(clusterPoints[i].Split(',')[2]);
 
-			GameObject clone = Instantiate(clusterPrefab) as GameObject;
+			clone = Instantiate(clusterPrefab) as GameObject;
 			clone.transform.SetParent(transform);
-			Vector3 position = new Vector3(x, 0, z);
+			position = new Vector3(x, 0, z);
 			clone.transform.localScale = new Vector3(pointScale, .02f, pointScale);
 			clone.transform.position = position;
-			int ID = Random.Range(0, clusterSize);
-			ClusterPoint point = clone.GetComponent<ClusterPoint>();
+            clone.name = "point" + i;
+			ID = Random.Range(0, clusterSize);
+			point = clone.GetComponent<ClusterPoint>();
 			point.Init(ID);
 
 			for (int j = 0; j < centroids.Count; j++)
@@ -279,6 +293,8 @@ public class Cluster : MonoBehaviour {
 		{
 			centroids[i].CalculateCenter();
 		}
+
+        Debug.Log("childs" + transform.childCount);
 
 		// yield return new WaitForSeconds(4);
 

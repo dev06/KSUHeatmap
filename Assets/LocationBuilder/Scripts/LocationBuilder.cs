@@ -81,6 +81,7 @@ public class LocationBuilder : MonoBehaviour {
     public static void BuildWalls(List<Vector2> walls)
     {
         instance = INSTANCE;
+        DestroyWalls();
         GameObject next_wall;
         Vector3 nextPosition = new Vector3(walls[0].x, 0, walls[0].y);
         for(int i = 0; i < walls.Count-1; i++)
@@ -119,6 +120,7 @@ public class LocationBuilder : MonoBehaviour {
     public static void BuildBeacons(List<Vector3> beacons)
     {
         instance = INSTANCE;
+        DestroyBeacons();
         GameObject nextBeacon;
         for(int i = 0; i < beacons.Count; i++)
         {
@@ -134,6 +136,7 @@ public class LocationBuilder : MonoBehaviour {
     public static void BuildBeacons(List<string[]> beacons)
     {
         instance = INSTANCE;
+        DestroyBeacons();
         GameObject nextBeacon;
         for (int i = 0; i < beacons.Count; i++)
         {
@@ -157,5 +160,25 @@ public class LocationBuilder : MonoBehaviour {
             result.Add(nextBeacon);
         }
         BuildBeacons(result);
+    }
+
+    static void DestroyWalls()
+    {
+        instance = INSTANCE;
+        Transform walls = instance.transform.Find("Walls");
+        for(int i = walls.childCount-1; i >= 0; i--)
+        {
+            Destroy(walls.GetChild(i).gameObject);
+        }
+    }
+
+    static void DestroyBeacons()
+    {
+        instance = INSTANCE;
+        Transform beacons = instance.transform.Find("Beacons");
+        for (int i = beacons.childCount - 1; i >= 0; i--)
+        {
+            Destroy(beacons.GetChild(i).gameObject);
+        }
     }
 }
