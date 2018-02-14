@@ -25,6 +25,10 @@ public class DataParser : MonoBehaviour {
 
 	public float distanceThreshold = .1f;
 
+    public GameObject layout_guitar;
+    public GameObject layout_atrium;
+    public LayoutOpacity layout_opacity;
+
 	void Awake()
 	{
 		if (Instance == null)
@@ -51,14 +55,26 @@ public class DataParser : MonoBehaviour {
 		//activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + fileName + ".csv");
 
         if (locationfile == null)
-            activeLocation = ParseLocation(Application.dataPath + "/Datapoint/location.txt");
+            activeLocation = ParseLocation(Application.streamingAssetsPath + "/Datapoint/location.txt");
         else
-            activeLocation = ParseLocation(Application.dataPath + "/Datapoint/" + locationfile);
+            activeLocation = ParseLocation(Application.streamingAssetsPath + "/Datapoint/" + locationfile);
 
         if (datafile == null)
-            activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/guitar_lab_no_filter.csv");
+            activeSession = ParseDatapoints(Application.streamingAssetsPath + "/Datapoint/guitar_lab_no_filter.csv");
         else
-            activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + datafile);
+            activeSession = ParseDatapoints(Application.streamingAssetsPath + "/Datapoint/" + datafile);
+
+        if(locationfile.Contains("GuitarLab"))
+        {
+            layout_guitar.SetActive(true);
+            layout_atrium.SetActive(false);
+        }
+        else if (locationfile.Contains("Atrium"))
+        {
+            layout_guitar.SetActive(false);
+            layout_atrium.SetActive(true);
+        }
+        layout_opacity.Reset();
         BuildAll();
     }
 
@@ -75,7 +91,7 @@ public class DataParser : MonoBehaviour {
 	{
         BuildPath(activeSession);
 		BuildWalls(activeLocation);
-		BuildBeacons(activeLocation);
+		//BuildBeacons(activeLocation);
         //set up camera to see whole room
         Camera thiscam = GetComponent<Camera>();
         thiscam.orthographicSize = width / 2;

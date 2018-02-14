@@ -84,4 +84,14 @@ public class ClusterUI : MonoBehaviour {
 		Cluster.Instance.ClearArea(false);
 		running = false;
 	}
+
+    public void SetPresets(PresetButtons preset)
+    {
+        input_location.text = preset.text_location;
+        input_data.text = preset.text_data;
+        clusterSlider.value = (int)preset.num_clusters;
+        pointSlider.value = preset.scale_point;
+        distanceSlider.value = preset.threshold_distance;
+        centroidSlider.value = preset.delay_calculatecentroid;
+    }
 }
