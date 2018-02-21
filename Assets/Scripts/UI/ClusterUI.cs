@@ -50,8 +50,8 @@ public class ClusterUI : MonoBehaviour {
 		cluster = Cluster.Instance;
 		dataParser = DataParser.Instance;
 
-        input_location.text = "Atrium/Atrium_Info.csv";
-		input_data.text = "Atrium/Atrium_NoFilter.csv";
+        input_location.text = "/Atrium/3rd floor atrium_Info.csv";
+		input_data.text = "/Atrium/3rd floor atrium_No_Filter.csv";
 
 	}
 

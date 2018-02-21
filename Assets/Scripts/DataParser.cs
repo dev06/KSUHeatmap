@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
 public class DataParser : MonoBehaviour {
 
 	public static DataParser Instance;
@@ -55,12 +56,12 @@ public class DataParser : MonoBehaviour {
 		//activeSession = ParseDatapoints(Application.dataPath + "/Datapoint/" + fileName + ".csv");
 
         if (locationfile == null)
-            activeLocation = ParseLocation(Application.streamingAssetsPath + "/Datapoint/location.txt");
+            activeLocation = ParseLocation(Application.streamingAssetsPath + "/Datapoint/Atrium/3rd floor atrium_Info.csv");
         else
             activeLocation = ParseLocation(Application.streamingAssetsPath + "/Datapoint/" + locationfile);
 
         if (datafile == null)
-            activeSession = ParseDatapoints(Application.streamingAssetsPath + "/Datapoint/guitar_lab_no_filter.csv");
+            activeSession = ParseDatapoints(Application.streamingAssetsPath + "/Datapoint/Atrium/3rd floor atrium_No_Filter.csv");
         else
             activeSession = ParseDatapoints(Application.streamingAssetsPath + "/Datapoint/" + datafile);
 
@@ -89,9 +90,11 @@ public class DataParser : MonoBehaviour {
 	}
 	public  void BuildAll()
 	{
+
+        BuildWalls(activeLocation);
         BuildPath(activeSession);
-		BuildWalls(activeLocation);
-		//BuildBeacons(activeLocation);
+	    BuildBeacons(activeLocation);
+
         //set up camera to see whole room
         Camera thiscam = GetComponent<Camera>();
         thiscam.orthographicSize = width / 2;
@@ -103,7 +106,7 @@ public class DataParser : MonoBehaviour {
 	public  void BuildPath(List<Session> activeSession)
 	{
 		List<string> displayPoints = new List<string>();
-
+        List<Vector2> navigationPoints = new List<Vector2>();
 
 		Cluster.Instance.CreateCentroid();
         float minDist = distanceThreshold * distanceThreshold;
@@ -114,7 +117,6 @@ public class DataParser : MonoBehaviour {
         //for (int i = 0; i < 1; i++)
         {
             //if (i > 0) { break; }
-            Debug.Log(activeSession[i].datapoints.Count);
 			for (int j = 0; j < activeSession[i].datapoints.Count; j++)
 			{
 				if (j == 0)
@@ -127,7 +129,7 @@ public class DataParser : MonoBehaviour {
                     pv.x = float.Parse(prevPoint.Split(',')[1]);
 
                     pv.y = float.Parse(prevPoint.Split(',')[2]);
-
+                    navigationPoints.Add(pv);           //add the vector 2 to keep track for navigation
                 } else
 				{
 
@@ -158,15 +160,17 @@ public class DataParser : MonoBehaviour {
                     //set previous vector to the current vector (previous for next point)
                     pv.x = nv.x;
                     pv.y = nv.y;
-				}
+
+                    navigationPoints.Add(pv);       //add the vector 2 to keep track for navigation
+                }
 			}
 
 
 
         }
-        Debug.Log("total-" + displayPoints.Count);
 
         Cluster.Instance.BuildPoints(displayPoints);
+        FindObjectOfType<Navigation.Grid>().SetData(navigationPoints);
         displayPoints.Clear();
     }
 
@@ -198,6 +202,9 @@ public class DataParser : MonoBehaviour {
 		}
         width = maxx;
         height = maxy;
+
+        FindObjectOfType<Navigation.Grid>().roomscale = new Vector2(width, height);
+        FindObjectOfType<Navigation.Grid>().GenerateCells();
 
 		LocationBuilder.BuildWalls(walls);
 	}
@@ -303,7 +310,7 @@ public class DataParser : MonoBehaviour {
 		Session s = new Session();
 
 		string[] sessionData = beaconFileContents.Split(new string[] {"END"}, System.StringSplitOptions.None);
-        Debug.Log(sessionData.Length);
+        //Debug.Log("Session Count" + sessionData.Length);
 		List<Session> sessions = new List<Session>();
 
 		for (int i = 0; i < sessionData.Length; i++)
@@ -356,8 +363,6 @@ public class DataParser : MonoBehaviour {
 			sessions.Add(session);
 
 		}
-
-        Debug.Log("after");
         sessions.RemoveAt(sessions.Count - 1);
 		return sessions;
 	}

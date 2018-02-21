@@ -294,8 +294,6 @@ public class Cluster : MonoBehaviour {
 			centroids[i].CalculateCenter();
 		}
 
-        Debug.Log("childs" + transform.childCount);
-
 		// yield return new WaitForSeconds(4);
 
 		// ClearArea(true);
