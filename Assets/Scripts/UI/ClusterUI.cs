@@ -11,7 +11,7 @@ public class ClusterUI : MonoBehaviour {
 	public GameObject CentroidDelay;
 
 	public InputField input_location;
-    public InputField input_data;
+	public InputField input_data;
 
 	private Slider clusterSlider;
 	private Slider pointSlider;
@@ -21,13 +21,14 @@ public class ClusterUI : MonoBehaviour {
 	private Text clusterSliderText;
 	private Text pointSliderText;
 	private Text distanceSliderText;
-	private Text centroidSliderText;
+	private Text cellDensityText;
 
 
 
 
 	Cluster cluster;
 	DataParser dataParser;
+	Navigation.Grid grid; 
 
 
 	void Start ()
@@ -44,14 +45,16 @@ public class ClusterUI : MonoBehaviour {
 		distanceSliderText = DistanceThreshold.transform.GetChild(2).GetComponent<Text>();
 
 		centroidSlider = CentroidDelay.transform.GetChild(1).GetComponent<Slider>();
-		centroidSliderText = CentroidDelay.transform.GetChild(2).GetComponent<Text>();
+		cellDensityText = CentroidDelay.transform.GetChild(2).GetComponent<Text>();
 
 
 		cluster = Cluster.Instance;
 		dataParser = DataParser.Instance;
 
-        input_location.text = "/Atrium/3rd floor atrium_Info.csv";
+		input_location.text = "/Atrium/3rd floor atrium_Info.csv";
 		input_data.text = "/Atrium/3rd floor atrium_No_Filter.csv";
+
+		grid = FindObjectOfType<Navigation.Grid>(); 
 
 	}
 
@@ -60,14 +63,14 @@ public class ClusterUI : MonoBehaviour {
 		cluster.clusterSize = (int)clusterSlider.value;
 		cluster.pointScale = pointSlider.value;
 		dataParser.distanceThreshold = distanceSlider.value;
-		cluster.centroidCenterDelay = centroidSlider.value;
+		grid.celldensity = (int)centroidSlider.value;
 
 		clusterSliderText.text = cluster.clusterSize.ToString();
 		pointSliderText.text = cluster.pointScale.ToString("F3");
-		centroidSliderText.text = cluster.centroidCenterDelay.ToString("F2");
+		cellDensityText.text = grid.celldensity.ToString("F2");
 		distanceSliderText.text = dataParser.distanceThreshold.ToString("F3");
-        dataParser.locationfile = input_location.text;
-        dataParser.datafile = input_data.text;
+		dataParser.locationfile = input_location.text;
+		dataParser.datafile = input_data.text;
 
 	}
 
@@ -85,13 +88,13 @@ public class ClusterUI : MonoBehaviour {
 		running = false;
 	}
 
-    public void SetPresets(PresetButtons preset)
-    {
-        input_location.text = preset.text_location;
-        input_data.text = preset.text_data;
-        clusterSlider.value = (int)preset.num_clusters;
-        pointSlider.value = preset.scale_point;
-        distanceSlider.value = preset.threshold_distance;
-        centroidSlider.value = preset.delay_calculatecentroid;
-    }
+	public void SetPresets(PresetButtons preset)
+	{
+		input_location.text = preset.text_location;
+		input_data.text = preset.text_data;
+		clusterSlider.value = (int)preset.num_clusters;
+		pointSlider.value = preset.scale_point;
+		distanceSlider.value = preset.threshold_distance;
+		centroidSlider.value = preset.delay_calculatecentroid;
+	}
 }

@@ -1,0 +1,680 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"data",
+				"datapoints"
+			],
+			[
+				"act",
+				"activeSession"
+			],
+			[
+				"poin",
+				"pointsInMiniCentroid"
+			],
+			[
+				"min",
+				"miniCentroidCount"
+			],
+			[
+				"minic",
+				"miniCentroidCount"
+			],
+			[
+				"acti",
+				"activeLocation"
+			],
+			[
+				"Genera",
+				"GenerateUnwalkableMesh"
+			],
+			[
+				"poi",
+				"pointDistances"
+			],
+			[
+				"Min",
+				"MiniCentroid"
+			],
+			[
+				"Set",
+				"SetMiniCentroid"
+			],
+			[
+				"dist",
+				"distanceFromMini"
+			],
+			[
+				"miin",
+				"miniCentroid"
+			],
+			[
+				"mini",
+				"miniCentroid"
+			],
+			[
+				"Cluster",
+				"Cluster"
+			],
+			[
+				"Get",
+				"GetComponent"
+			],
+			[
+				"CALC",
+				"CalculateSTD"
+			],
+			[
+				"point",
+				"points"
+			],
+			[
+				"po",
+				"points"
+			],
+			[
+				"to",
+				"toCheck"
+			],
+			[
+				"clos",
+				"closest"
+			],
+			[
+				"firs",
+				"firstCen"
+			],
+			[
+				"fir",
+				"firstCen"
+			],
+			[
+				"current",
+				"currentBase"
+			],
+			[
+				"game",
+				"gameObject"
+			],
+			[
+				"par",
+				"ParticleSystem"
+			],
+			[
+				"j",
+				"jitter"
+			],
+			[
+				"jite",
+				"jitterAmount"
+			],
+			[
+				"jit",
+				"jitterAmount"
+			],
+			[
+				"Ve",
+				"Vector2"
+			],
+			[
+				"came",
+				"cameraController"
+			],
+			[
+				"cam",
+				"cameraController"
+			],
+			[
+				"Came",
+				"CameraController"
+			],
+			[
+				"Vec",
+				"Vector3"
+			],
+			[
+				"time",
+				"timeScaleVel"
+			],
+			[
+				"M",
+				"MENU"
+			],
+			[
+				"OnGAm",
+				"OnGameOver"
+			],
+			[
+				"OnGame",
+				"OnGameStart"
+			],
+			[
+				"DEFA",
+				"DEFAULT_MAX_SCALE"
+			],
+			[
+				"def",
+				"DEFAULT_MIN_SCALE"
+			],
+			[
+				"base",
+				"BASE_VELOCITY"
+			],
+			[
+				"DE",
+				"DEFAULT_MAX_SCALE"
+			],
+			[
+				"GAme",
+				"GameplayController"
+			],
+			[
+				"Game",
+				"GameplayController"
+			],
+			[
+				"ne",
+				"nextBase"
+			],
+			[
+				"obj",
+				"objectSpawner"
+			],
+			[
+				"ga",
+				"gameplayController"
+			],
+			[
+				"Par",
+				"ParticleSystem"
+			],
+			[
+				"curre",
+				"currentBase"
+			],
+			[
+				"GMA",
+				"GAME_STATE"
+			],
+			[
+				"Vector",
+				"Vector2"
+			],
+			[
+				"GAME",
+				"GameplayController"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Grid.cs",
+			"settings":
+			{
+				"buffer_size": 6553,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"side bar",
+				"View: Toggle Open Files in Side Bar"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Cluster.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Datapoint/Atrium/feb21st.csv",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Datapoint/Atrium/0_kal.csv",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/MiniCentroid.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataParser.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/ClusterPoint.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/Unwalkable.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/MeshCreator.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Centroid.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/ClusterUI.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/PathGeneration.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Object/Location.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/AppResources.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/Starter.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataPoint.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap-master/Assets/Scripts/Cluster/Cluster.cs",
+		"/Users/devan/Desktop/test.cpp",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap-master/Assets/Scripts/DataPoint.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap-master/Assets/Scripts/Cluster/Centroid.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/GameplayController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/LineController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/BoostSpriteMask.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/CameraController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Particle.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/PlayerController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/BorderController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/ObjectSpawner.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/BaseController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/CameraController.cs.meta",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/Menu.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/ScoreHandler.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/PowerUp.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/CoinController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/ParentUI.cs",
+		"/Users/devan/Library/Application Support/Sublime Text 3/Packages/User/Prettier.sublime-settings",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/EventManager.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Game.meta",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Game/State.cs",
+		"/Users/devan/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Grid.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6553,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2199,
+								2199
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 502.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "sublimeHeatmap.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"cluster",
+				"Cluster/Cluster.cs"
+			],
+			[
+				"ui",
+				"UI/ClusterUI.cs"
+			],
+			[
+				"data",
+				"DataParser.cs"
+			],
+			[
+				"mesh",
+				"PathGeneration/MeshCreator.cs"
+			],
+			[
+				"un",
+				"PathGeneration/Unwalkable.cs"
+			],
+			[
+				"loca",
+				"Object/Location.cs"
+			],
+			[
+				"datap",
+				"DataParser.cs"
+			],
+			[
+				"app",
+				"AppResources.cs"
+			],
+			[
+				"path",
+				"PathGeneration/PathGeneration.cs"
+			],
+			[
+				"clusterp",
+				"Cluster/ClusterPoint.cs"
+			],
+			[
+				"cl",
+				"Cluster/ClusterPoint.cs"
+			],
+			[
+				"cen",
+				"Cluster/Centroid.cs"
+			],
+			[
+				"cne",
+				"Cluster/Centroid.cs"
+			],
+			[
+				"min",
+				"Cluster/MiniCentroid.cs"
+			],
+			[
+				"a",
+				"AppResources.cs"
+			],
+			[
+				"clusterpoin",
+				"Cluster/ClusterPoint.cs"
+			],
+			[
+				"clusterpo",
+				"Cluster/ClusterPoint.cs"
+			],
+			[
+				"starter",
+				"PathGeneration/Starter.cs"
+			],
+			[
+				"point",
+				"Cluster/ClusterPoint.cs"
+			],
+			[
+				"clusteru",
+				"UI/ClusterUI.cs"
+			],
+			[
+				"start",
+				"PathGeneration/Starter.cs"
+			],
+			[
+				"pate",
+				"PathGeneration/PathGeneration.cs"
+			],
+			[
+				"page",
+				"PathGeneration.cs"
+			],
+			[
+				"centroid",
+				"Cluster/Centroid.cs"
+			],
+			[
+				"",
+				"Cluster/Cluster.cs"
+			],
+			[
+				"line",
+				"LineController.cs"
+			],
+			[
+				"basecon",
+				"BaseController.cs"
+			],
+			[
+				"objec",
+				"ObjectSpawner.cs"
+			],
+			[
+				"bord",
+				"BorderController.cs"
+			],
+			[
+				"boar",
+				"BaseController.cs"
+			],
+			[
+				"camera",
+				"CameraController.cs"
+			],
+			[
+				"caeram",
+				"CameraController.cs.meta"
+			],
+			[
+				"game",
+				"GameplayController.cs"
+			],
+			[
+				"boose",
+				"Handler/BoostSpriteMask.cs"
+			],
+			[
+				"power",
+				"PowerUp.cs"
+			],
+			[
+				"coin",
+				"CoinController.cs"
+			],
+			[
+				"score",
+				"Handler/ScoreHandler.cs"
+			],
+			[
+				"menu",
+				"UI/Menu.cs"
+			],
+			[
+				"gampe",
+				"GameplayController.cs"
+			],
+			[
+				"player",
+				"PlayerController.cs"
+			],
+			[
+				"base",
+				"BaseController.cs"
+			],
+			[
+				"gamep",
+				"GameplayController.cs"
+			],
+			[
+				"obj",
+				"ObjectSpawner.cs"
+			],
+			[
+				"enve",
+				"EventManager.cs"
+			],
+			[
+				"oj",
+				"ObjectSpawner.cs"
+			],
+			[
+				"meu",
+				"UI/Menu.cs"
+			],
+			[
+				"obje",
+				"ObjectSpawner.cs"
+			],
+			[
+				"boossp",
+				"Handler/BoostSpriteMask.cs"
+			],
+			[
+				"ca",
+				"CameraController.cs"
+			],
+			[
+				"camear",
+				"CameraController.cs"
+			],
+			[
+				"gam",
+				"GameplayController.cs"
+			],
+			[
+				"mneu",
+				"UI/Menu.cs"
+			],
+			[
+				"parent",
+				"UI/ParentUI.cs"
+			],
+			[
+				"gamp",
+				"GameplayController.cs"
+			],
+			[
+				"state",
+				"Game/State.cs"
+			],
+			[
+				"border",
+				"BorderController.cs"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 116.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -88,7 +88,7 @@ namespace Navigation
         void ClearPreviousCells()
         {
             if(transform.Find("CELLS") != null)
-                DestroyImmediate(transform.Find("CELLS").gameObject);
+            DestroyImmediate(transform.Find("CELLS").gameObject);
 
             cellholder = new GameObject("CELLS").transform;
             cellholder.parent = transform;
@@ -100,18 +100,35 @@ namespace Navigation
         //tells the cells their data (by default, reset previous data)
         public void SetData(List<Vector2> newdata, bool reset = true)
         {
+
             try
             {
-                if (reset)
+
+
+                DataPartition dp = new DataPartition(newdata); 
+
+            }
+            catch
+            {
+                Debug.Log("SOMETHING WENT WRONG, PROBS OUT OF BOUNDS");
+            }
+        }
+
+        public void DisplayNavmesh(List<Vector2> newdata, bool reset = true)
+        {
+            try
+            {
+               if (reset)
+               {
+                for (int x = 0; x < cells.Count; x++)
                 {
-                    for (int x = 0; x < cells.Count; x++)
+                    for (int y = 0; y < cells[x].Count; y++)
                     {
-                        for (int y = 0; y < cells[x].Count; y++)
-                        {
-                            cells[x][y].ResetData();
-                        }
+                        cells[x][y].ResetData();
                     }
                 }
+
+
                 int temprow = 0, tempcol = 0;
                 for (int i = 0; i < newdata.Count; i++)
                 {
@@ -129,55 +146,57 @@ namespace Navigation
                     }
                 }
             }
-            catch
-            {
-                Debug.Log("SOMETHING WENT WRONG, PROBS OUT OF BOUNDS");
-            }
         }
+        catch
+        {
+            Debug.Log("SOMETHING WENT WRONG, PROBS OUT OF BOUNDS");
+        }
+
+    }
 
         //find a certain neighbor ring at distance
-        List<Cell> GetNeighbors(int cellx, int celly, int distance)
-        {
-            if (distance == 0)
-                return new List<Cell>() { cells[cellx][celly] };
-            List<Cell> neighbors = new List<Cell>();
+    List<Cell> GetNeighbors(int cellx, int celly, int distance)
+    {
+        if (distance == 0)
+        return new List<Cell>() { cells[cellx][celly] };
+        List<Cell> neighbors = new List<Cell>();
             //add the horizontal neighbors (including corners)
-            for(int i = cellx-distance; i <= cellx+distance; i++)
-            {
+        for(int i = cellx-distance; i <= cellx+distance; i++)
+        {
                 //if out of bounds, dont do anything
-                if (i < 0 || i >= cells.Count)
-                    continue;
+            if (i < 0 || i >= cells.Count)
+            continue;
                 //add the top neighbors
-                if(celly + distance < cells[0].Count)
-                {
-                    neighbors.Add(cells[i][celly + distance]);
-                }
-                //add the bottom neighbors
-                if(celly - distance >= 0)
-                {
-                    neighbors.Add(cells[i][celly - distance]);
-                }
+            if(celly + distance < cells[0].Count)
+            {
+                neighbors.Add(cells[i][celly + distance]);
             }
+                //add the bottom neighbors
+            if(celly - distance >= 0)
+            {
+                neighbors.Add(cells[i][celly - distance]);
+            }
+        }
 
             //add the vertical neighbors (except for corners)
-            for (int i = celly - distance+1; i <= celly + distance-1; i++)
-            {
+        for (int i = celly - distance+1; i <= celly + distance-1; i++)
+        {
                 //if out of bounds, dont do anything
-                if (i < 0 ||i >= cells[0].Count)
-                    continue;
+            if (i < 0 ||i >= cells[0].Count)
+            continue;
                 //add the right neighbors
-                if (cellx + distance < cells.Count)
-                {
-                    neighbors.Add(cells[cellx + distance][i]);
-                }
-                //add the left neighbors
-                if (cellx - distance >= 0)
-                {
-                    neighbors.Add(cells[cellx - distance][i]);
-                }
+            if (cellx + distance < cells.Count)
+            {
+                neighbors.Add(cells[cellx + distance][i]);
             }
-
-            return neighbors;
+                //add the left neighbors
+            if (cellx - distance >= 0)
+            {
+                neighbors.Add(cells[cellx - distance][i]);
+            }
         }
+
+        return neighbors;
     }
+}
 }
