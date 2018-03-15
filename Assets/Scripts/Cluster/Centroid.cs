@@ -111,7 +111,10 @@ public class Centroid : MonoBehaviour {
 					endIndex = startIndex + points.Count  / miniCentroidCount; 
 					for(int ia = startIndex; ia < endIndex; ia++)
 					{
-						toAdd.Add(points[ia]); 
+						if(points[ia].Active)
+						{
+							toAdd.Add(points[ia]); 
+						}
 
 					}
 

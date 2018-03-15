@@ -42,6 +42,10 @@ public class ClusterPoint : MonoBehaviour {
 		//targetLinePosition = Vector3.Lerp(lineRenderer.GetPosition(1), centroid.position, Time.deltaTime * 5.0f);
 		//lineRenderer.SetPosition(1, targetLinePosition);
 		//lineRenderer.material = material;
+
+		
+		distance = Vector3.Distance(position, centroid.position);			
+		
 	}
 
 	public void Hide()
@@ -110,6 +114,14 @@ public class ClusterPoint : MonoBehaviour {
 
 	public bool Active
 	{
+		set{
+			active = value; 
+
+			if(active == false)
+			{
+				Hide(); 
+			}
+		}
 		get
 		{
 			return active; 

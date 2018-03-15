@@ -19,7 +19,7 @@ public class Cluster : MonoBehaviour {
 	public float pointScale = .5f;
 	public float centroidCenterDelay = .4f;
 	private Unwalkable unwalkable; 
-
+	private Spawner boxSpawner; 
 	private PathGeneration pathGeneration; 
 	void Awake()
 	{
@@ -31,6 +31,11 @@ public class Cluster : MonoBehaviour {
 
 
 		//pathGeneration = new PathGeneration(centroids); 
+	}
+
+	void Start()
+	{
+		boxSpawner = FindObjectOfType<Spawner>(); 
 	}
 
 	GameObject centroidClone;
@@ -66,11 +71,20 @@ public class Cluster : MonoBehaviour {
 			
 		}
 
-		if (Input.GetKeyDown(KeyCode.M))
+
+
+		if (Input.GetKeyDown(KeyCode.I))
 		{
-			// CalculateAverageCentroid();
+			
+		}
+
+		if (Input.GetKeyDown(KeyCode.H))
+		{
 
 		}
+
+
+
 
 		if (Input.GetKeyDown(KeyCode.G))
 		{
@@ -78,14 +92,19 @@ public class Cluster : MonoBehaviour {
 			GenerateMesh(); 
 				//centroids[i].GeneratePath();
 				//centroids[i].FilterMiniCentroids(); 
-
-
-
-
-			
-
 			//GenerateUnwalkableMesh(); 
 		}
+	}
+
+	public void SpawnBox()
+	{
+		boxSpawner.DestroyBoxes(); 
+		boxSpawner.SpawnBoxes(location); 
+	}
+
+	public void HideBox()
+	{
+		boxSpawner.DestroyBoxes();  
 	}
 
 	public void CalculateAverageCentroid()
@@ -95,35 +114,6 @@ public class Cluster : MonoBehaviour {
 		// 	CreatePinCentroid(centroids[i], i);
 		// }
 	}
-
-	// Centroid other;
-	// float distanceTo, x, z;
-	// Vector3 position;
-	// GameObject pinClone;
-	// private void CreatePinCentroid(Centroid c, int ia)
-	// {
-
-	// 	for (int i = 0; i < centroids.Count; i++)
-	// 	{
-	// 		if (ia == i) { break; }
-	// 		if (centroids[i].ID != c.ID)
-	// 		{
-	// 			other = centroids[i];
-	// 			distanceTo = Vector3.SqrMagnitude(other.position - c.position);
-	// 			if (distanceTo > 25f) { continue; }
-	// 			x = c.position.x + other.position.x;
-	// 			z = c.position.z + other.position.z; 
-	// 			x /= 2;
-	// 			z /= 2;
-	// 			position = new Vector3(x, 10, z);
-	// 			pinClone = Instantiate(AverageCentroid) as GameObject;
-	// 			pinClone.transform.SetParent(transform);
-	// 			pinClone.transform.position = position;
-	// 			pins.Add(pinClone);
-	// 		}
-	// 	}
-	// }
-
 
 	public void GenerateUnwalkableMesh()
 	{

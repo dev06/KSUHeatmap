@@ -4,6 +4,78 @@
 		"selected_items":
 		[
 			[
+				"mag",
+				"magnitude"
+			],
+			[
+				"acit",
+				"activeLocation"
+			],
+			[
+				"locan",
+				"locationPath"
+			],
+			[
+				"IS",
+				"IAssignMiniCentroidPoints"
+			],
+			[
+				"Data",
+				"DataParser"
+			],
+			[
+				"dataP",
+				"dataPath"
+			],
+			[
+				"UI",
+				"UnityEngine"
+			],
+			[
+				"D",
+				"DropdownType"
+			],
+			[
+				"min",
+				"miniCentroid"
+			],
+			[
+				"clos",
+				"closestPoint"
+			],
+			[
+				"dis",
+				"distance"
+			],
+			[
+				"poi",
+				"points"
+			],
+			[
+				"Clus",
+				"ClusterPoint"
+			],
+			[
+				"Gener",
+				"GenerateMesh"
+			],
+			[
+				"curr",
+				"currentCentroid"
+			],
+			[
+				"new",
+				"newdata"
+			],
+			[
+				"Vec",
+				"Vector2"
+			],
+			[
+				"cluster",
+				"clusterPrefab"
+			],
+			[
 				"data",
 				"datapoints"
 			],
@@ -16,10 +88,6 @@
 				"pointsInMiniCentroid"
 			],
 			[
-				"min",
-				"miniCentroidCount"
-			],
-			[
 				"minic",
 				"miniCentroidCount"
 			],
@@ -30,10 +98,6 @@
 			[
 				"Genera",
 				"GenerateUnwalkableMesh"
-			],
-			[
-				"poi",
-				"pointDistances"
 			],
 			[
 				"Min",
@@ -78,10 +142,6 @@
 			[
 				"to",
 				"toCheck"
-			],
-			[
-				"clos",
-				"closest"
 			],
 			[
 				"firs",
@@ -130,10 +190,6 @@
 			[
 				"Came",
 				"CameraController"
-			],
-			[
-				"Vec",
-				"Vector3"
 			],
 			[
 				"time",
@@ -212,12 +268,75 @@
 	"buffers":
 	[
 		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataParser.cs",
+			"settings":
+			{
+				"buffer_size": 10405,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "Grid.cs",
 			"settings":
 			{
-				"buffer_size": 6553,
+				"buffer_size": 6674,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/DataPartition.cs",
+			"settings":
+			{
+				"buffer_size": 494,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Cluster.cs",
+			"settings":
+			{
+				"buffer_size": 7291,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Centroid.cs",
+			"settings":
+			{
+				"buffer_size": 7703,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek/BoxOut.cs",
+			"settings":
+			{
+				"buffer_size": 5290,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/ClusterUI.cs",
+			"settings":
+			{
+				"buffer_size": 2715,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek/Spawner.cs",
+			"settings":
+			{
+				"buffer_size": 2757,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -259,20 +378,33 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek"
+	],
 	"file_history":
 	[
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek/BoxOut.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/ClusterPoint.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Object/Location.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/MiniCentroid.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/UIDropdown.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/NavigationMesh/Grid.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Centroid.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek/Spawner.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/StreamingAssets/Location/3rd floor stairs - no walls_Info.csv",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/ClusterUI.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/Dropdown.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Cluster.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/DataPartition.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/AppResources.cs",
+		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataParser.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Datapoint/Atrium/feb21st.csv",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Datapoint/Atrium/0_kal.csv",
-		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/MiniCentroid.cs",
-		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataParser.cs",
-		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/ClusterPoint.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/Unwalkable.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/MeshCreator.cs",
-		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Centroid.cs",
-		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/ClusterUI.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/PathGeneration.cs",
-		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Object/Location.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/AppResources.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/PathGeneration/Starter.cs",
 		"/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataPoint.cs",
@@ -311,6 +443,9 @@
 		"height": 101.0,
 		"where_history":
 		[
+			"",
+			"<current file>",
+			""
 		]
 	},
 	"find_state":
@@ -318,6 +453,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"CreatePoints",
+			"FilterPoints",
+			"centroidSliderText",
+			"SetData",
+			"AssignMiniCentroidPoints"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -325,6 +465,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"cellDensityText"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -335,24 +476,54 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Grid.cs",
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/DataParser.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6553,
+						"buffer_size": 10405,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2199,
-								2199
+								2318,
+								2318
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 838.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Grid.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6674,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3673,
+								3686
 							]
 						],
 						"settings":
@@ -362,10 +533,186 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 502.0,
+						"translation.y": 968.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/DataPartition.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 494,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								329,
+								347
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Cluster.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2204,
+								2204
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2940.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/Cluster/Centroid.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7703,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2803,
+								2803
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 896.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek/BoxOut.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5290,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								829,
+								829
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 559.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Scripts/UI/ClusterUI.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2715,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1412,
+								1412
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 489.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/devan/Documents/Unity/Github/KSUHeatmap/Assets/Derek/Spawner.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2757,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1417,
+								1417
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 542.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -420,16 +767,92 @@
 		"selected_items":
 		[
 			[
-				"cluster",
-				"Cluster/Cluster.cs"
+				"cn",
+				"Scripts/Cluster/Centroid.cs"
 			],
 			[
-				"ui",
-				"UI/ClusterUI.cs"
+				"cluster",
+				"Scripts/Cluster/Cluster.cs"
+			],
+			[
+				"box",
+				"Derek/BoxOut.cs"
+			],
+			[
+				"cluterui",
+				"Scripts/UI/ClusterUI.cs"
+			],
+			[
+				"spawn",
+				"Derek/Spawner.cs"
+			],
+			[
+				"l",
+				"Scripts/Object/Location.cs"
+			],
+			[
+				"datap",
+				"Scripts/DataParser.cs"
+			],
+			[
+				"grid",
+				"Scripts/NavigationMesh/Grid.cs"
+			],
+			[
+				"spawen",
+				"Derek/Spawner.cs"
+			],
+			[
+				"boxout",
+				"Derek/BoxOut.cs"
+			],
+			[
+				"min",
+				"Cluster/MiniCentroid.cs"
+			],
+			[
+				"centroid",
+				"Cluster/Centroid.cs"
+			],
+			[
+				"clusterpoin",
+				"Cluster/ClusterPoint.cs"
 			],
 			[
 				"data",
 				"DataParser.cs"
+			],
+			[
+				"clus",
+				"Cluster/Cluster.cs"
+			],
+			[
+				"clusterui",
+				"UI/ClusterUI.cs"
+			],
+			[
+				"uidr",
+				"UI/UIDropdown.cs"
+			],
+			[
+				"datapare",
+				"DataParser.cs"
+			],
+			[
+				"dro",
+				"UI/Dropdown.cs"
+			],
+			[
+				"appres",
+				"Cluster/AppResources.cs"
+			],
+			[
+				"clusterpoint",
+				"Cluster/ClusterPoint.cs"
+			],
+			[
+				"ui",
+				"UI/ClusterUI.cs"
 			],
 			[
 				"mesh",
@@ -442,10 +865,6 @@
 			[
 				"loca",
 				"Object/Location.cs"
-			],
-			[
-				"datap",
-				"DataParser.cs"
 			],
 			[
 				"app",
@@ -472,16 +891,8 @@
 				"Cluster/Centroid.cs"
 			],
 			[
-				"min",
-				"Cluster/MiniCentroid.cs"
-			],
-			[
 				"a",
 				"AppResources.cs"
-			],
-			[
-				"clusterpoin",
-				"Cluster/ClusterPoint.cs"
 			],
 			[
 				"clusterpo",
@@ -510,10 +921,6 @@
 			[
 				"page",
 				"PathGeneration.cs"
-			],
-			[
-				"centroid",
-				"Cluster/Centroid.cs"
 			],
 			[
 				"",
@@ -672,7 +1079,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 116.0,
+	"side_bar_width": 220.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
